@@ -1,0 +1,12 @@
+@import "/src/index.css";
+
+.main {
+  width: 100%;
+  background-color: var(--secondary-background-color);
+  display: flex;
+  flex-direction: row;
+}
+
+.title {
+  font-size: 40px;
+}
