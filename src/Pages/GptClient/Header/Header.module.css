@@ -5,8 +5,13 @@
   background-color: var(--secondary-background-color);
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  padding: 15px 0;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
 }
 
 .title {
   font-size: 40px;
+  font-family: var(--font-family-play);
+  color: var(--green-text-color);
 }

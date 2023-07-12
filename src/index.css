@@ -1,7 +1,9 @@
 :root {
-  --primary-background-color: #7e8287;
-  --secondary-background-color: #54494b;
+  --font-family-play: "Play", sans-serif;
+  --primary-background-color: #121212;
+  --secondary-background-color: #1e1e1e;
   --primary-text-color: white;
+  --green-text-color: rgb(149, 255, 221);
   --secondary-text-color: rgb(204, 204, 204);
 }
 
