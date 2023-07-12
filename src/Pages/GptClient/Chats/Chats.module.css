@@ -1,0 +1,16 @@
+@import "/src/index.css";
+
+.outer {
+  padding: 35px;
+}
+
+.back {
+  border-radius: 15px;
+  width: 250px;
+  height: 100%;
+  display: flex;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  font-family: var(--font-family-play);
+  background-color: var(--secondary-background-color);
+  color: var(--secondary-text-color);
+}

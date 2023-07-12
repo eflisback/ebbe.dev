@@ -1,0 +1,7 @@
+@import "/src/index.css";
+
+.back {
+  font-family: var(--font-family-play);
+  color: var(--primary-text-color);
+  flex-grow: 1;
+}
