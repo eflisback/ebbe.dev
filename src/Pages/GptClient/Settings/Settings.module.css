@@ -2,10 +2,11 @@
 
 .outer {
   padding: 35px;
+  padding-left: 0;
+  padding-bottom: 0;
 }
 
 .back {
-  border-radius: 15px;
   width: 250px;
   height: 100%;
   display: flex;
@@ -13,4 +14,6 @@
   font-family: var(--font-family-play);
   background-color: var(--secondary-background-color);
   color: var(--secondary-text-color);
+  position: relative;
+  z-index: 10;
 }
