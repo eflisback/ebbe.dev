@@ -2,13 +2,7 @@ import React, { useState } from "react";
 import styles from "./ChatFlow.module.css";
 import { OpenAIApi } from "openai";
 import { Configuration } from "openai/dist/configuration";
-let openai;
-const instructions = ``;
 
-const api_key = import.meta.env.VITE_OPENAI_API_KEY as string;
-
-// const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
-console.log("ollebolle: ", import.meta.env.VITE_OPENAI_API_KEY);
 class Message {
   public sender: string;
   public content: string;
@@ -21,42 +15,74 @@ class Message {
   }
 }
 
-const testData: Message[] = [
-  new Message("user", "Hello! How are you?"),
-  new Message("model", "I'm doing well, thank you! How about you?"),
-  new Message("user", "I'm good too. Just working on a project."),
-  new Message("model", "That sounds interesting. What kind of project is it?"),
-  new Message(
-    "user",
-    "It's a web development project using the latest frameworks."
-  ),
-  new Message("model", "That's great! Which frameworks are you using?"),
-  new Message(
-    "user",
-    "I'm using React.js for the frontend and Node.js for the backend."
-  ),
-  new Message(
-    "model",
-    "Excellent choice! Both React.js and Node.js are popular and powerful tools."
-  ),
-  new Message(
-    "user",
-    "Thank you! I'm excited about how the project is shaping up."
-  ),
-  new Message(
-    "model",
-    "I'm sure it will turn out great. Best of luck with your development!"
-  ),
-];
-
-export default function ChatFlow() {
-  const [inputValue, setInputValue] = useState("");
-
-  const messages = testData;
-
-  const handleMessageSend = () => {
-    console.log("Heya sending message");
+interface IProps {
+  settings: {
+    model: string;
+    api_key: string;
+    chatHistoryMemory: number;
   };
+}
+
+type ChatCompletionRequestMessage = {
+  role: "system" | "user" | "assistant";
+  content: string;
+};
+
+export default function ChatFlow({ settings }: IProps) {
+  const [inputValue, setInputValue] = useState("");
+  const [messages, setMessages] = useState<Message[]>([]);
+
+  const configuration = new Configuration({
+    apiKey: settings.api_key,
+  });
+  const openai = new OpenAIApi(configuration);
+
+  async function handleMessageSend() {
+    console.log("Sending message:", inputValue);
+    if (!inputValue.trim()) return;
+
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      new Message("user", inputValue),
+    ]);
+    setInputValue("");
+
+    try {
+      const messagesToInclude: ChatCompletionRequestMessage[] = messages
+        .slice(-settings.chatHistoryMemory)
+        .map((message) => ({
+          role: message.sender === "user" ? "user" : "assistant",
+          content: message.content,
+        }));
+
+      const response = await openai.createChatCompletion(
+        {
+          model: settings.model,
+          temperature: 0.888,
+          max_tokens: 2048,
+          frequency_penalty: 0,
+          presence_penalty: 0,
+          top_p: 1,
+          messages: [
+            ...messagesToInclude,
+            { role: "user", content: inputValue },
+          ],
+        },
+        { timeout: 60000 }
+      );
+
+      const response_text = response.data.choices[0].message!.content!.trim();
+
+      console.log("Response:", response_text);
+
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        new Message("model", response_text),
+      ]);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value);
@@ -91,7 +117,14 @@ export default function ChatFlow() {
           <button
             type="button"
             className={styles.sendButton}
-            onClick={handleMessageSend}
+            onClick={() => {
+              console.log("Button clicked.");
+              handleMessageSend()
+                .then()
+                .catch((error) => {
+                  console.error("Error:", error);
+                });
+            }}
           >
             Send
           </button>
