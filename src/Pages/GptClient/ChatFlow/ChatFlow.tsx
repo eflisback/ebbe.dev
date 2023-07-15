@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "./ChatFlow.module.css";
 import { OpenAIApi } from "openai";
 import { Configuration } from "openai/dist/configuration";
@@ -31,11 +31,18 @@ type ChatCompletionRequestMessage = {
 export default function ChatFlow({ settings }: IProps) {
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
+  const messageFlowRef = useRef<HTMLDivElement>(null);
 
   const configuration = new Configuration({
     apiKey: settings.api_key,
   });
   const openai = new OpenAIApi(configuration);
+
+  useEffect(() => {
+    if (messageFlowRef.current) {
+      messageFlowRef.current.scrollTop = messageFlowRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   async function handleMessageSend() {
     console.log("Sending message:", inputValue);
@@ -90,7 +97,7 @@ export default function ChatFlow({ settings }: IProps) {
 
   return (
     <div className={styles.back}>
-      <div className={styles.messageFlow}>
+      <div className={styles.messageFlow} ref={messageFlowRef}>
         {messages.map((message, index) => (
           <div
             className={`${styles.message} ${

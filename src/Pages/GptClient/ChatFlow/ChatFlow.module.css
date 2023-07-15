@@ -13,6 +13,7 @@
   height: 1px;
   flex-grow: 1;
   overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
 .message {
@@ -20,6 +21,8 @@
   flex-direction: column;
   margin-bottom: 12px;
   padding: 10px 10%;
+  white-space: pre;
+  overflow-wrap: break-word;
 }
 
 .brighter {
