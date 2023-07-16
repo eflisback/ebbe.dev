@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./GptClient.module.css";
 
 // Components
-import Header from "./Header/Header";
 import Chats from "./Chats/Chats";
 import ChatFlow from "./ChatFlow/ChatFlow";
 import Settings from "./Settings/Settings";
@@ -18,11 +17,14 @@ const defaultSettings = {
 export default function GptClient() {
   const [settings, setSettings] = useState(defaultSettings);
 
+  useEffect(() => {
+    console.log(settings); // Log settings whenever they change
+  }, [settings]);
+
   return (
     <div className={styles.body}>
       <Chats />
       <div className={styles.mainContent}>
-        <Header />
         <ChatFlow settings={settings} />
       </div>
       <Settings setSettings={setSettings} />
