@@ -1,0 +1,22 @@
+.back {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: black;
+  border: 1px solid var(--green-text-color);
+  border-radius: 5px;
+  color: rgb(145, 231, 145);
+}
+
+.header {
+  color: var(--primary-text-color);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--secondary-text-color);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.copy {
+  text-decoration: underline;
+  cursor: pointer;
+}
