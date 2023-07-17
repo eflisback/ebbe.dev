@@ -9,22 +9,21 @@ export default function CodeBlock({ code }: IProps) {
   const languageName = code.split("\n")[0];
   const remainingCode = code.split("\n").slice(1).join("\n");
 
-  const handleCopyClick = async () => {
-    try {
-      await navigator.clipboard.writeText(remainingCode);
-    } catch (error) {
-      // Handle the error here
-      console.error("Failed to copy code:", error);
-    }
+  const handleCopyClick = () => {
+    console.log("Attempting to copy.");
+    navigator.clipboard
+      .writeText(remainingCode)
+      .then(() => console.log("waddawadda"))
+      .catch((e) => console.log(e));
   };
 
   return (
     <div className={styles.back}>
       <div className={styles.header}>
         <span>{languageName}</span>
-        <span className={styles.copy} onClick={() => handleCopyClick}>
+        <button type="button" className={styles.copy} onClick={handleCopyClick}>
           Copy
-        </span>
+        </button>
       </div>
       <pre>
         <code>{remainingCode}</code>
