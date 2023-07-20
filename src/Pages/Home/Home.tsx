@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom";
+import styles from "./Home.module.css";
+
+// Components
+import FlowField from "./FlowField/FlowField";
 
 export default function Home() {
   return (
-    <div>
-      <span>home</span>
-      <Link to="/gpt-client">Länk</Link>
+    <div className={styles.body}>
+      <FlowField />
     </div>
   );
 }
