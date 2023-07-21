@@ -12,6 +12,8 @@ class Particle {
   private maxLenght: number;
   private angle: number;
   private timer: number;
+  private colors: string[];
+  private color: string;
 
   constructor(effect: Effect) {
     this.effect = effect;
@@ -21,9 +23,11 @@ class Particle {
     this.speedY = 0;
     this.speedModifier = Math.floor(Math.random() * 2 + 1);
     this.history = [{ x: this.x, y: this.y }];
-    this.maxLenght = Math.floor(Math.random() * 200 + 10);
+    this.maxLenght = Math.floor(Math.random() * 100 + 10);
     this.angle = 0;
     this.timer = this.maxLenght * 2;
+    this.colors = ["#34ebe8", "#24ed4c", "#f562e6"];
+    this.color = this.colors[Math.floor(Math.random() * this.colors.length)];
   }
   draw(context: CanvasRenderingContext2D) {
     context.beginPath();
@@ -31,6 +35,7 @@ class Particle {
     for (let i = 0; i < this.history.length; i++) {
       context.lineTo(this.history[i].x, this.history[i].y);
     }
+    context.strokeStyle = this.color;
     context.stroke();
   }
   update() {
@@ -80,16 +85,22 @@ class Effect {
     this.width = width;
     this.height = height;
     this.particles = [];
-    this.numberOfParticles = 300;
+    this.numberOfParticles = 1000;
     this.cellSize = 20;
     this.rows = 0;
     this.columns = 0;
     this.flowField = [];
-    this.curve = 0.5;
-    this.zoom = 0.1;
+    this.curve = 0.3;
+    this.zoom = 0.13;
     this.init();
   }
-
+  drawText(context: CanvasRenderingContext2D) {
+    context.font = "500px Impact";
+    context.fillStyle = "white";
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+    context.fillText("ebbe.dev", this.width * 0.5, this.height * 0.5);
+  }
   init() {
     // Flow field
     this.rows = Math.floor(this.height / this.cellSize);
@@ -104,11 +115,13 @@ class Effect {
       }
     }
 
+    this.particles = [];
     for (let i = 0; i < this.numberOfParticles; i++) {
       this.particles.push(new Particle(this));
     }
   }
   render(context: CanvasRenderingContext2D) {
+    this.drawText(context);
     this.particles.forEach((particle) => {
       particle.draw(context);
       particle.update();
@@ -117,7 +130,8 @@ class Effect {
 }
 
 function animate(context: CanvasRenderingContext2D, effect: Effect) {
-  context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+  context.fillStyle = "rgba(0, 0, 0, 0.8)";
+  context.fillRect(0, 0, window.innerWidth, window.innerHeight);
   effect.render(context);
   requestAnimationFrame(() => animate(context, effect));
 }
@@ -149,8 +163,6 @@ export default function FlowField() {
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-
-    ctx.fillStyle = "red";
 
     const effect = new Effect(canvas.width, canvas.height);
     effect.render(ctx);
