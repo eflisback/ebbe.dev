@@ -7,9 +7,11 @@ class Particle {
   public y: number;
   private speedX: number;
   private speedY: number;
+  private speedModifier: number;
   private history: { x: number; y: number }[];
   private maxLenght: number;
   private angle: number;
+  private timer: number;
 
   constructor(effect: Effect) {
     this.effect = effect;
@@ -17,9 +19,11 @@ class Particle {
     this.y = Math.floor(Math.random() * this.effect.height);
     this.speedX = 0;
     this.speedY = 0;
+    this.speedModifier = Math.floor(Math.random() * 2 + 1);
     this.history = [{ x: this.x, y: this.y }];
     this.maxLenght = Math.floor(Math.random() * 200 + 10);
     this.angle = 0;
+    this.timer = this.maxLenght * 2;
   }
   draw(context: CanvasRenderingContext2D) {
     context.beginPath();
@@ -30,20 +34,33 @@ class Particle {
     context.stroke();
   }
   update() {
-    const x = Math.floor(this.x / this.effect.cellSize);
-    const y = Math.floor(this.y / this.effect.cellSize);
-    const index = y * this.effect.columns + x;
-    this.angle = this.effect.flowField[index];
+    this.timer--;
+    if (this.timer >= 1) {
+      const x = Math.floor(this.x / this.effect.cellSize);
+      const y = Math.floor(this.y / this.effect.cellSize);
+      const index = y * this.effect.columns + x;
+      this.angle = this.effect.flowField[index];
 
-    this.speedX = Math.cos(this.angle);
-    this.speedY = Math.sin(this.angle);
-    this.x += this.speedX;
-    this.y += this.speedY;
+      this.speedX = Math.cos(this.angle);
+      this.speedY = Math.sin(this.angle);
+      this.x += this.speedX * this.speedModifier;
+      this.y += this.speedY * this.speedModifier;
 
-    this.history.push({ x: this.x, y: this.y });
-    if (this.history.length > this.maxLenght) {
+      this.history.push({ x: this.x, y: this.y });
+      if (this.history.length > this.maxLenght) {
+        this.history.shift();
+      }
+    } else if (this.history.length > 1) {
       this.history.shift();
+    } else {
+      this.reset();
     }
+  }
+  reset() {
+    this.x = Math.floor(Math.random() * this.effect.width);
+    this.y = Math.floor(Math.random() * this.effect.height);
+    this.history = [{ x: this.x, y: this.y }];
+    this.timer = this.maxLenght * 2;
   }
 }
 
