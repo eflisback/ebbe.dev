@@ -56,8 +56,8 @@ section:last-of-type {
   color: var(--green-text-color) !important;
 }
 
-.links a:hover,
-.links button:hover {
+.links button:hover,
+.socials a:hover {
   color: lightgray;
 }
 
