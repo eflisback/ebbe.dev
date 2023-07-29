@@ -1,36 +1,32 @@
 import styles from "./NavBar.module.css";
 
-interface IPage {
-  displayText: string;
-  id: string;
-}
-
 interface IProps {
   pages: IPage[];
   aboutPages: IPage[];
-  activePageId: string;
-  setActivePageId: React.Dispatch<React.SetStateAction<string>>;
+  activePage: IPage;
+  setActivePage: React.Dispatch<React.SetStateAction<IPage>>;
 }
 
 export default function NavBar({
   pages,
   aboutPages,
-  activePageId,
-  setActivePageId,
+  activePage,
+  setActivePage,
 }: IProps) {
   return (
     <div className={styles.main}>
       <section>
-        <span className={styles.title}>ebbe.dev</span>
+        <div className={styles.title}>ebbe.dev</div>
       </section>
       <section>
         <div className={styles.subHeader}>Pages</div>
         <div className={styles.links}>
           {pages.map((page) => (
             <button
+              key={page.id}
               type="button"
-              onClick={() => setActivePageId(page.id)}
-              className={page.id === activePageId ? styles.active : ""}
+              onClick={() => setActivePage(page)}
+              className={page.id === activePage.id ? styles.active : ""}
             >
               {page.displayText}
             </button>
@@ -42,9 +38,10 @@ export default function NavBar({
         <div className={styles.links}>
           {aboutPages.map((page) => (
             <button
+              key={page.id}
               type="button"
-              onClick={() => setActivePageId(page.id)}
-              className={page.id === activePageId ? styles.active : ""}
+              onClick={() => setActivePage(page)}
+              className={page.id === activePage.id ? styles.active : ""}
             >
               {page.displayText}
             </button>

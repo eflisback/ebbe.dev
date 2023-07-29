@@ -1,1 +1,16 @@
 @import "../../../index.css";
+
+.main {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+  width: 100%;
+  display: flex;
+  color: rgb(67, 67, 67);
+  padding: var(--s-xs) 0;
+  font-size: var(--s-l);
+}
+
+.main span {
+  margin-left: var(--s-xl);
+  width: fit-content;
+}

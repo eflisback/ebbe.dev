@@ -3,17 +3,17 @@ import styles from "./Home.module.css";
 
 // Components
 import NavBar from "./NavBar/NavBar";
+import Header from "./Header/Header";
 
-interface IPage {
-  displayText: string;
-  id: string;
-  component?: JSX.Element;
-}
+// Pages
+import Welcome from "../Welcome/Welcome";
+import TestPage1 from "../TestPage1/TestPage1";
 
 const pages: IPage[] = [
   {
     displayText: "Welcome",
     id: "welcome",
+    component: <Welcome />,
   },
   {
     displayText: "Custom GPT Client",
@@ -22,10 +22,7 @@ const pages: IPage[] = [
   {
     displayText: "Test-page 1",
     id: "t1",
-  },
-  {
-    displayText: "Test-page 2",
-    id: "t2",
+    component: <TestPage1 />,
   },
 ];
 
@@ -49,17 +46,21 @@ const aboutPages: IPage[] = [
 ];
 
 export default function Home() {
-  const [activePageId, setActivePageId] = useState(pages[0].id);
+  const [activePage, setActivePage] = useState(pages[0]);
 
   return (
     <div className={styles.body}>
       <NavBar
         pages={pages}
         aboutPages={aboutPages}
-        activePageId={activePageId}
-        setActivePageId={setActivePageId}
+        activePage={activePage}
+        setActivePage={setActivePage}
       />
-      <div className={styles.content}></div>
+      <div className={styles.content}>
+        <Header page={activePage} />
+        {pages.map((page) => page.id === activePage.id && page.component)}
+        {aboutPages.map((page) => page.id === activePage.id && page.component)}
+      </div>
     </div>
   );
 }

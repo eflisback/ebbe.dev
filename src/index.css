@@ -30,5 +30,11 @@ body {
   color: white;
 }
 
+.pageBody {
+  width: 100%;
+  min-height: 0px;
+  flex: 1;
+}
+
 @media (max-width: 1250px) {
 }
