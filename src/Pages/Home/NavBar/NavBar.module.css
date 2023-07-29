@@ -1,0 +1,25 @@
+@import "../../../index.css";
+
+.main {
+  padding: 20px;
+  box-sizing: border-box;
+  font: var(--font-family-play);
+  background-color: var(--secondary-background-color);
+  height: 100%;
+}
+
+.main span:first-child {
+  color: var(--green-text-color);
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+}
+
+.links a {
+  margin: 5px 0;
+  padding: 10px;
+  text-decoration: none;
+  color: gray;
+}
