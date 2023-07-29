@@ -7,8 +7,8 @@ import GptClient from "./Pages/GptClient/GptClient";
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={Home()} />
-      <Route path="/gpt-client" element={GptClient()} />
+      <Route path="/" element={<Home />} />
+      <Route path="/gpt-client" element={<GptClient />} />
     </Routes>
   );
 }

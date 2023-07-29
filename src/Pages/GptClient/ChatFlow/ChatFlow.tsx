@@ -3,14 +3,27 @@ import styles from "./ChatFlow.module.css";
 import { OpenAIApi } from "openai";
 import { Configuration } from "openai/dist/configuration";
 
+// Components
+import CodeBlock from "../CodeBlock/CodeBlock";
+
+class MessageBlock {
+  public content: string;
+  public isCode: boolean;
+
+  constructor(content: string, isCode: boolean) {
+    this.content = content;
+    this.isCode = isCode;
+  }
+}
+
 class Message {
   public sender: string;
-  public content: string;
+  public blocks: MessageBlock[];
   public timestamp: Date;
 
-  constructor(sender: string, content: string) {
+  constructor(sender: string, blocks: MessageBlock[]) {
     this.sender = sender;
-    this.content = content;
+    this.blocks = blocks;
     this.timestamp = new Date();
   }
 }
@@ -50,7 +63,7 @@ export default function ChatFlow({ settings }: IProps) {
 
     setMessages((prevMessages) => [
       ...prevMessages,
-      new Message("user", inputValue),
+      new Message("user", [new MessageBlock(inputValue, false)]),
     ]);
     setInputValue("");
 
@@ -59,7 +72,7 @@ export default function ChatFlow({ settings }: IProps) {
         .slice(-settings.chatHistoryMemory)
         .map((message) => ({
           role: message.sender === "user" ? "user" : "assistant",
-          content: message.content,
+          content: message.blocks.map((block) => block.content).join("\n"),
         }));
 
       const response = await openai.createChatCompletion(
@@ -82,9 +95,34 @@ export default function ChatFlow({ settings }: IProps) {
 
       console.log("Response:", response_text);
 
+      const codeRegex = /```([\s\S]*?)```/g;
+      const blocks: MessageBlock[] = [];
+      let match;
+
+      let currentIndex = 0;
+      while ((match = codeRegex.exec(response_text)) !== null) {
+        const codeContent = match[1];
+        const nonCodeContent = response_text.substring(
+          currentIndex,
+          match.index
+        );
+
+        if (nonCodeContent) {
+          blocks.push(new MessageBlock(nonCodeContent, false));
+        }
+
+        blocks.push(new MessageBlock(codeContent, true));
+        currentIndex = codeRegex.lastIndex;
+      }
+
+      if (currentIndex < response_text.length) {
+        const remainingContent = response_text.substring(currentIndex);
+        blocks.push(new MessageBlock(remainingContent, false));
+      }
+
       setMessages((prevMessages) => [
         ...prevMessages,
-        new Message("model", response_text),
+        new Message("model", blocks),
       ]);
     } catch (error) {
       console.error("Error:", error);
@@ -106,7 +144,15 @@ export default function ChatFlow({ settings }: IProps) {
             key={index}
           >
             <div className={styles.sender}>{message.sender}</div>
-            <div className={styles.content}>{message.content}</div>
+            {message.blocks.map((block, blockIndex) => (
+              <React.Fragment key={blockIndex}>
+                {block.isCode ? (
+                  <CodeBlock code={block.content} />
+                ) : (
+                  <div className={styles.content}>{block.content}</div>
+                )}
+              </React.Fragment>
+            ))}
             <div className={styles.timestamp}>
               {message.timestamp.toLocaleString()}
             </div>

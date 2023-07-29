@@ -1,6 +1,6 @@
 @import "../../../index.css";
 
-a {
+.main {
   padding: var(--s-xxs) 0;
   text-decoration: none;
   color: unset;

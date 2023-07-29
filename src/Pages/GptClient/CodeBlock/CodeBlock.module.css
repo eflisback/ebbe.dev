@@ -1,0 +1,38 @@
+.back {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: black;
+  border: 1px solid var(--green-text-color);
+  border-radius: 5px;
+  color: rgb(145, 231, 145);
+}
+
+.header {
+  color: var(--primary-text-color);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--secondary-text-color);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.copy {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: var(--secondary-text-color);
+  border: 1px solid var(--secondary-text-color);
+  padding: 7px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.copy:hover {
+  color: var(--primary-text-color);
+}
+
+.copy:active {
+  background-color: var(--primary-text-color);
+}
