@@ -1,15 +1,31 @@
 @import "../../../index.css";
 
 .main {
-  padding: 20px;
+  padding: var(--s-s) var(--s-s);
   box-sizing: border-box;
   font: var(--font-family-play);
   background-color: var(--secondary-background-color);
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.main span:first-child {
+section {
+  margin-bottom: var(--s-m);
+}
+
+section:last-of-type {
+  margin-bottom: 0;
+}
+
+.title {
+  font-size: var(--s-xs);
   color: var(--green-text-color);
+}
+
+.subHeader {
+  margin-bottom: var(--s-xxs);
 }
 
 .links {
@@ -17,9 +33,42 @@
   flex-direction: column;
 }
 
-.links a {
-  margin: 5px 0;
-  padding: 10px;
+.links button,
+.socials a {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  cursor: pointer;
+  width: fit-content;
+  padding: 0;
+  margin: var(--s-xxs) 0;
+  margin-left: var(--s-xxs);
   text-decoration: none;
   color: gray;
+  transition: 0.15s;
+}
+
+.active {
+  color: var(--green-text-color) !important;
+}
+
+.links a:hover,
+.links button:hover {
+  color: lightgray;
+}
+
+.socials {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: var(--s-m);
+}
+
+.socials a {
+  margin-right: var(--s-xxs);
+  margin-left: 0 !important;
+}
+
+.socials a:last-of-type {
+  margin-right: 0;
 }
