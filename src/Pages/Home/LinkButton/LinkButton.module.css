@@ -1,0 +1,24 @@
+@import "../../../index.css";
+
+a {
+  padding: var(--s-xxs) 0;
+  text-decoration: none;
+  color: unset;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  box-sizing: border-box;
+  background-color: var(--secondary-background-color);
+  box-shadow: 4px 4px 0 rgb(149, 255, 221);
+}
+
+.header,
+.content {
+  max-width: 200px;
+  padding: var(--s-xxs) var(--s-xs);
+}
+
+.header {
+  color: white;
+  font-size: var(--s-xs);
+}

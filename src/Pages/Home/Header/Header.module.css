@@ -5,12 +5,13 @@
   font-weight: lighter;
   width: 100%;
   display: flex;
-  color: rgb(67, 67, 67);
+  color: rgb(61, 61, 61);
   padding: var(--s-xs) 0;
   font-size: var(--s-l);
 }
 
 .main span {
+  font-style: italic;
   margin-left: var(--s-xl);
   width: fit-content;
 }

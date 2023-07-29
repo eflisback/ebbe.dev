@@ -29,6 +29,7 @@ section:last-of-type {
 
 .subHeader {
   margin-bottom: var(--s-xxs);
+  font-size: var(--s-xs);
 }
 
 .links {
@@ -38,6 +39,7 @@ section:last-of-type {
 
 .links button,
 .socials a {
+  font-size: calc((var(--s-xxs) + var(--s-xs)) / 2);
   background-color: transparent;
   border: none;
   border-radius: 0;
