@@ -1,37 +1,69 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./Header.module.css";
+
+interface IPage {
+  displayText: string;
+}
 
 interface IProps {
   page: IPage;
 }
 
 export default function Header({ page }: IProps) {
-  const fullText: string = "ebbe.dev - " + page.displayText;
-  const [path, setPath] = useState("");
+  const [text, setText] = useState("");
+  const [borderAnimation, setBorderAnimation] = useState(true);
+  const minDelay = 100;
+  const maxDelay = 200;
+  const initialDelay = 500;
 
   useEffect(() => {
-    let currentCharIndex = 0;
-    const typingInterval = setInterval(() => {
-      if (currentCharIndex >= fullText.length) {
-        clearInterval(typingInterval);
-      } else {
-        setPath((prevPath) => prevPath + fullText.charAt(currentCharIndex));
-        currentCharIndex++;
-      }
-    }, 100);
+    setBorderAnimation(true);
+    let isMounted = true;
 
-    // Clean up the interval when the component unmounts
-    return () => clearInterval(typingInterval);
-  }, [fullText]);
+    const typeWriter = (textToType: string, index: number) => {
+      if (!isMounted) return;
+
+      if (index === textToType.length) return;
+
+      const delay = Math.floor(
+        Math.random() * (maxDelay - minDelay) + minDelay
+      );
+
+      setTimeout(() => {
+        setText(textToType.substring(0, index + 1));
+        typeWriter(textToType, index + 1);
+      }, delay);
+    };
+
+    setText("");
+
+    const timeout = setTimeout(() => {
+      typeWriter(`ebbe.dev - ${page.displayText}`, 0);
+    }, initialDelay);
+
+    return () => {
+      isMounted = false;
+      clearTimeout(timeout);
+    };
+  }, [page, initialDelay]);
 
   useEffect(() => {
-    // Clear the text and restart the typewriter effect when the active page changes
-    setPath("");
-  }, [page]);
+    const animationTimeout = setTimeout(() => {
+      setBorderAnimation(false);
+    }, 3000);
+
+    return () => {
+      clearTimeout(animationTimeout);
+    };
+  }, [text]);
 
   return (
     <div className={styles.main}>
-      <span>{path}</span>
+      <div>
+        <span className={borderAnimation ? "" : styles.noAnimation}>
+          {text}
+        </span>
+      </div>
     </div>
   );
 }

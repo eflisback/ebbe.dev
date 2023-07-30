@@ -14,4 +14,25 @@
   font-style: italic;
   margin-left: var(--s-xl);
   width: fit-content;
+  border-right: 2px solid transparent;
+  animation: typewriter 0.5s steps(30) infinite, blink 1s infinite step-end;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-right: 5px;
+}
+
+.noAnimation {
+  border-color: transparent !important;
+}
+
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: white; /* Changed to an instant switch to white */
+  }
 }
