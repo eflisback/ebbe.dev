@@ -1,15 +1,11 @@
 import { useState, useEffect } from "react";
 import styles from "./Header.module.css";
 
-interface IPage {
+interface IProps {
   displayText: string;
 }
 
-interface IProps {
-  page: IPage;
-}
-
-export default function Header({ page }: IProps) {
+export default function Header({ displayText }: IProps) {
   const [text, setText] = useState("");
   const [borderAnimation, setBorderAnimation] = useState(true);
   const minDelay = 100;
@@ -38,14 +34,14 @@ export default function Header({ page }: IProps) {
     setText("");
 
     const timeout = setTimeout(() => {
-      typeWriter(`ebbe.dev - ${page.displayText}`, 0);
+      typeWriter(`ebbe.dev - ${displayText}`, 0);
     }, initialDelay);
 
     return () => {
       isMounted = false;
       clearTimeout(timeout);
     };
-  }, [page, initialDelay]);
+  }, [displayText, initialDelay]);
 
   useEffect(() => {
     const animationTimeout = setTimeout(() => {

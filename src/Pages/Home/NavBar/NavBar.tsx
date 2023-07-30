@@ -4,15 +4,15 @@ import { BsGithub, BsLinkedin, BsInstagram } from "react-icons/bs";
 interface IProps {
   pages: IPage[];
   aboutPages: IPage[];
-  activePage: IPage;
-  setActivePage: React.Dispatch<React.SetStateAction<IPage>>;
+  activePageId: string;
+  setActivePageId: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function NavBar({
   pages,
   aboutPages,
-  activePage,
-  setActivePage,
+  activePageId,
+  setActivePageId,
 }: IProps) {
   return (
     <div className={styles.main}>
@@ -26,8 +26,8 @@ export default function NavBar({
             <button
               key={page.id}
               type="button"
-              onClick={() => setActivePage(page)}
-              className={page.id === activePage.id ? styles.active : ""}
+              onClick={() => setActivePageId(page.id)}
+              className={page.id === activePageId ? styles.active : ""}
             >
               {page.displayText}
             </button>
@@ -41,8 +41,8 @@ export default function NavBar({
             <button
               key={page.id}
               type="button"
-              onClick={() => setActivePage(page)}
-              className={page.id === activePage.id ? styles.active : ""}
+              onClick={() => setActivePageId(page.id)}
+              className={page.id === activePageId ? styles.active : ""}
             >
               {page.displayText}
             </button>
