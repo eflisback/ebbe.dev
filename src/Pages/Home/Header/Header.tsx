@@ -1,4 +1,4 @@
-// import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Header.module.css";
 
 interface IProps {
@@ -6,24 +6,28 @@ interface IProps {
 }
 
 export default function Header({ page }: IProps) {
-  const path: string = "ebbe.dev - " + page.displayText;
-  /* const [renderedPath, setRenderedPath] = useState("");
+  const fullText: string = "ebbe.dev - " + page.displayText;
+  const [path, setPath] = useState("");
 
   useEffect(() => {
-    if (page.displayText !== "" && renderedPath === "") {
-      let initialString = "";
-      const subStrings = path.split("");
-      subStrings.forEach((letter) => {
-        initialString += letter;
-        setRenderedPath(initialString);
-      });
-    }
-  }, [page.displayText, renderedPath]);
+    let currentCharIndex = 0;
+    const typingInterval = setInterval(() => {
+      if (currentCharIndex >= fullText.length) {
+        clearInterval(typingInterval);
+      } else {
+        setPath((prevPath) => prevPath + fullText.charAt(currentCharIndex));
+        currentCharIndex++;
+      }
+    }, 100);
+
+    // Clean up the interval when the component unmounts
+    return () => clearInterval(typingInterval);
+  }, [fullText]);
 
   useEffect(() => {
-    console.log("hej");
-    console.log(renderedPath);
-  }, [renderedPath]); */
+    // Clear the text and restart the typewriter effect when the active page changes
+    setPath("");
+  }, [page]);
 
   return (
     <div className={styles.main}>
