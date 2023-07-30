@@ -1,4 +1,5 @@
 import styles from "./NavBar.module.css";
+import { BsGithub, BsLinkedin, BsInstagram } from "react-icons/bs";
 
 interface IProps {
   pages: IPage[];
@@ -51,9 +52,15 @@ export default function NavBar({
       <section>
         <div className={styles.subHeader}>Socials</div>
         <div className={styles.socials}>
-          <a href="">LI</a>
-          <a href="">GH</a>
-          <a href="">IG</a>
+          <a href="">
+            <BsLinkedin />
+          </a>
+          <a href="">
+            <BsGithub />
+          </a>
+          <a href="">
+            <BsInstagram />
+          </a>
         </div>
       </section>
     </div>

@@ -71,7 +71,12 @@ section:last-of-type {
 
 .socials a {
   margin-right: var(--s-xxs);
-  margin-left: 0 !important;
+  margin-left: 0;
+  font-size: var(--s-xs);
+}
+
+.socials a:first-of-type {
+  margin-left: 3px;
 }
 
 .socials a:last-of-type {
