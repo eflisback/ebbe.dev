@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import styles from "./Home.module.css";
 
 // Components
@@ -47,13 +47,11 @@ const aboutPages: IPage[] = [
 
 export default function Home() {
   const [activePageId, setActivePageId] = useState(pages[0].id);
-  const [activePage, setActivePage] = useState(pages[0]);
 
-  useEffect(() => {
-    setActivePage(
-      pages.concat(aboutPages).find((page) => page.id === activePageId)!
-    );
-  }, [activePageId]);
+  const activePage = useMemo(
+    () => [...pages, ...aboutPages].find((page) => page.id === activePageId),
+    [activePageId]
+  );
 
   return (
     <div className={styles.body}>
@@ -64,8 +62,8 @@ export default function Home() {
         setActivePageId={setActivePageId}
       />
       <div className={styles.content}>
-        <Header displayText={activePage.displayText} />
-        {activePage.component}
+        <Header displayText={activePage!.displayText} />
+        {activePage!.component}
       </div>
     </div>
   );
