@@ -1,19 +1,14 @@
 import styles from "./NavBar.module.css";
 import { BsGithub, BsLinkedin, BsInstagram } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 interface IProps {
   pages: IPage[];
   aboutPages: IPage[];
   activePageId: string;
-  setActivePageId: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function NavBar({
-  pages,
-  aboutPages,
-  activePageId,
-  setActivePageId,
-}: IProps) {
+export default function NavBar({ pages, aboutPages, activePageId }: IProps) {
   return (
     <div className={styles.main}>
       <section>
@@ -23,14 +18,14 @@ export default function NavBar({
         <div className={styles.subHeader}>Pages</div>
         <div className={styles.links}>
           {pages.map((page) => (
-            <button
+            <Link
               key={page.id}
               type="button"
-              onClick={() => setActivePageId(page.id)}
+              to={"/" + page.id}
               className={page.id === activePageId ? styles.active : ""}
             >
               {page.displayText}
-            </button>
+            </Link>
           ))}
         </div>
       </section>
@@ -38,14 +33,14 @@ export default function NavBar({
         <div className={styles.subHeader}>About me</div>
         <div className={styles.links}>
           {aboutPages.map((page) => (
-            <button
+            <Link
               key={page.id}
               type="button"
-              onClick={() => setActivePageId(page.id)}
+              to={"/" + page.id}
               className={page.id === activePageId ? styles.active : ""}
             >
               {page.displayText}
-            </button>
+            </Link>
           ))}
         </div>
       </section>

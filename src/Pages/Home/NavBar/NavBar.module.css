@@ -37,7 +37,7 @@ section:last-of-type {
   flex-direction: column;
 }
 
-.links button,
+.links a,
 .socials a {
   font-size: calc((var(--s-xxs) + var(--s-xs)) / 2);
   background-color: transparent;
@@ -58,7 +58,7 @@ section:last-of-type {
   color: var(--green-text-color) !important;
 }
 
-.links button:hover,
+.links a:hover,
 .socials a:hover {
   color: lightgray;
 }

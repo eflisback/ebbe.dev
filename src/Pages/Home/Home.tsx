@@ -73,6 +73,7 @@ export default function Home() {
       return foundPage;
     }
 
+    setActivePageId(fourZeroFour.id);
     return fourZeroFour;
   }, [location]);
 
@@ -82,14 +83,17 @@ export default function Home() {
         pages={pages}
         aboutPages={aboutPages}
         activePageId={activePageId}
-        setActivePageId={setActivePageId}
       />
       <div className={styles.content}>
         <Header displayText={activePage!.displayText} />
         <Routes>
           <Route path="/" element={<Welcome />} />
           {pages.concat(aboutPages).map((page) => (
-            <Route path={"/" + page.id} element={page.component} />
+            <Route
+              path={"/" + page.id}
+              key={page.id}
+              element={page.component}
+            />
           ))}
         </Routes>
       </div>
