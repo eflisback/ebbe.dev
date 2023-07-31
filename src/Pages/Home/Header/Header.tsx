@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import styles from "./Header.module.css";
 
 interface IProps {
-  displayText: string;
+  path: string;
 }
 
-export default function Header({ displayText }: IProps) {
+export default function Header({ path }: IProps) {
   const [text, setText] = useState("");
   const [borderAnimation, setBorderAnimation] = useState(true);
   const minDelay = 50;
@@ -34,14 +34,14 @@ export default function Header({ displayText }: IProps) {
     setText("");
 
     const timeout = setTimeout(() => {
-      typeWriter(`ebbe.dev - ${displayText}`, 0);
+      typeWriter(`ebbe.dev / ${path}`, 0);
     }, initialDelay);
 
     return () => {
       isMounted = false;
       clearTimeout(timeout);
     };
-  }, [displayText, initialDelay]);
+  }, [path, initialDelay]);
 
   useEffect(() => {
     const animationTimeout = setTimeout(() => {

@@ -85,7 +85,7 @@ export default function Home() {
         activePageId={activePageId}
       />
       <div className={styles.content}>
-        <Header displayText={activePage!.displayText} />
+        <Header path={activePage!.id} />
         <Routes>
           <Route path="/" element={<Welcome />} />
           {pages.concat(aboutPages).map((page) => (
