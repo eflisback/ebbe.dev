@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import styles from "./Home.module.css";
+import { Routes, Route } from "react-router-dom";
 
 // Components
 import NavBar from "./NavBar/NavBar";
@@ -63,7 +64,12 @@ export default function Home() {
       />
       <div className={styles.content}>
         <Header displayText={activePage!.displayText} />
-        {activePage!.component}
+        <Routes>
+          <Route path="/" element={<Welcome />} />
+          <Route path="/test" element={<TestPage1 />} />
+        </Routes>
+        {/*         {activePage!.component}
+         */}{" "}
       </div>
     </div>
   );
