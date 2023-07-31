@@ -8,8 +8,8 @@ interface IProps {
 export default function Header({ displayText }: IProps) {
   const [text, setText] = useState("");
   const [borderAnimation, setBorderAnimation] = useState(true);
-  const minDelay = 100;
-  const maxDelay = 200;
+  const minDelay = 50;
+  const maxDelay = 100;
   const initialDelay = 500;
 
   useEffect(() => {

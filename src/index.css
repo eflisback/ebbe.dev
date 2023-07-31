@@ -6,6 +6,10 @@
   --primary-text-color: white;
   --green-text-color: rgb(149, 255, 221);
   --secondary-text-color: rgb(189, 189, 189);
+  --shadow-color-1: rgba(149, 255, 221, 1);
+  --shadow-color-2: rgb(102, 192, 163);
+  --shadow-color-3: rgb(52, 116, 96);
+  --shadow-color-4: rgb(27, 79, 62);
 
   --s-xxl: 70px;
   --s-xl: 60px;
