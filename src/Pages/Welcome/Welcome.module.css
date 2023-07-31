@@ -21,11 +21,10 @@ p {
 
 .linkButtonContainer {
   width: 100%;
-
+  margin-top: var(--s-m);
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
-  min-height: 0px;
-  flex-grow: 1;
+  justify-content: center;
 }
