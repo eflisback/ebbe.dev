@@ -22,18 +22,6 @@ export default function Welcome() {
             icon={<RiGitRepositoryLine />}
             link="https://www.youtube.com"
           />
-          <LinkButton
-            title="Source repo"
-            description="The code of this website is open source and can be found here."
-            icon={<RiGitRepositoryLine />}
-            link="https://www.youtube.com"
-          />
-          <LinkButton
-            title="Source repo"
-            description="The code of this website is open source and can be found here."
-            icon={<RiGitRepositoryLine />}
-            link="https://www.youtube.com"
-          />
         </div>
       </div>
     </div>

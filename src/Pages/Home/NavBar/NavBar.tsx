@@ -1,5 +1,6 @@
 import styles from "./NavBar.module.css";
 import { BsGithub, BsLinkedin, BsInstagram } from "react-icons/bs";
+import { AiOutlineArrowRight } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
 interface IProps {
@@ -24,7 +25,10 @@ export default function NavBar({ pages, aboutPages, activePageId }: IProps) {
               to={"/" + page.id}
               className={page.id === activePageId ? styles.active : ""}
             >
-              {page.displayText}
+              <span className={styles.icon}>
+                <AiOutlineArrowRight />
+              </span>
+              <span>{page.displayText}</span>
             </Link>
           ))}
         </div>
@@ -39,7 +43,10 @@ export default function NavBar({ pages, aboutPages, activePageId }: IProps) {
               to={"/" + page.id}
               className={page.id === activePageId ? styles.active : ""}
             >
-              {page.displayText}
+              <span className={styles.icon}>
+                <AiOutlineArrowRight />
+              </span>
+              <span>{page.displayText}</span>
             </Link>
           ))}
         </div>
