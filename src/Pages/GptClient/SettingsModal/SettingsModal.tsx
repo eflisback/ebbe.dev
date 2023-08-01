@@ -1,4 +1,6 @@
+import { useState } from "react";
 import styles from "./SettingsModal.module.css";
+import { AiOutlineClose } from "react-icons/ai";
 
 interface IProps {
   setSettings: React.Dispatch<
@@ -17,10 +19,33 @@ export default function SettingsModal({
   modalOpen,
   closeModal,
 }: IProps) {
+  const [model, setModel] = useState("gpt-3.5-turbo");
+  const [apiKey, setApiKey] = useState("");
+  const [chatHistoryMemory, setChatHistoryMemory] = useState(3);
+
+  const handleModelChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setModel(e.target.value);
+  };
+
+  const handleApiKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setApiKey(e.target.value);
+  };
+
+  const handleChatHistoryMemoryChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const value = parseInt(e.target.value);
+    if (!isNaN(value) && value >= 1 && value <= 10) {
+      setChatHistoryMemory(value);
+    }
+  };
+
   const handleSaveSettings = () => {
-    // Handle saving settings here
-    // For example:
-    // setSettings({ model: "some_model", api_key: "some_api_key", chatHistoryMemory: 100 });
+    setSettings({
+      model: model,
+      api_key: apiKey,
+      chatHistoryMemory: chatHistoryMemory,
+    });
     closeModal();
   };
 
@@ -41,11 +66,40 @@ export default function SettingsModal({
       {modalOpen && (
         <div className={styles.modal} onClick={handleModalClick}>
           <div className={styles.modalContent}>
-            <span className={styles.close} onClick={handleCloseClick}>
-              &times;
-            </span>
-            <p>Some text in the Modal..</p>
-            <button onClick={handleSaveSettings}>Save Settings</button>
+            <div className={styles.modalHeader}>
+              <span>Settings</span>
+              <span className={styles.close} onClick={handleCloseClick}>
+                <AiOutlineClose />
+              </span>
+            </div>
+            <div className={styles.modelContainer}>
+              <label htmlFor="model">Model</label>
+              <select id="model" value={model} onChange={handleModelChange}>
+                <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
+                <option value="gpt-4">gpt-4</option>
+              </select>
+            </div>
+            <div className={styles.apiKeyContainer}>
+              <label htmlFor="apiKey">API Key</label>
+              <input
+                id="apiKey"
+                type="password"
+                value={apiKey}
+                onChange={handleApiKeyChange}
+              />
+            </div>
+            <div className={styles.chatHistoryContainer}>
+              <label htmlFor="chatHistoryMemory">Chat History Memory</label>
+              <input
+                id="chatHistoryMemory"
+                type="text"
+                value={chatHistoryMemory}
+                onChange={handleChatHistoryMemoryChange}
+              />
+            </div>{" "}
+            <button className={styles.saveButton} onClick={handleSaveSettings}>
+              Save Settings
+            </button>
           </div>
         </div>
       )}
