@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import styles from "./ChatFlow.module.css";
 import { OpenAIApi } from "openai";
 import { Configuration } from "openai/dist/configuration";
+import { FiSettings } from "react-icons/fi";
 
 // Components
 import CodeBlock from "../CodeBlock/CodeBlock";
@@ -34,6 +35,7 @@ interface IProps {
     api_key: string;
     chatHistoryMemory: number;
   };
+  openModal: () => void;
 }
 
 type ChatCompletionRequestMessage = {
@@ -41,7 +43,7 @@ type ChatCompletionRequestMessage = {
   content: string;
 };
 
-export default function ChatFlow({ settings }: IProps) {
+export default function ChatFlow({ settings, openModal }: IProps) {
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const messageFlowRef = useRef<HTMLDivElement>(null);
@@ -167,20 +169,25 @@ export default function ChatFlow({ settings }: IProps) {
             value={inputValue}
             onChange={handleInputChange}
           />
-          <button
-            type="button"
-            className={styles.sendButton}
-            onClick={() => {
-              console.log("Button clicked.");
-              handleMessageSend()
-                .then()
-                .catch((error) => {
-                  console.error("Error:", error);
-                });
-            }}
-          >
-            Send
-          </button>
+          <div className={styles.buttons}>
+            <button onClick={openModal} className={styles.settingsButton}>
+              <FiSettings />
+            </button>
+            <button
+              type="button"
+              className={styles.sendButton}
+              onClick={() => {
+                console.log("Button clicked.");
+                handleMessageSend()
+                  .then()
+                  .catch((error) => {
+                    console.error("Error:", error);
+                  });
+              }}
+            >
+              Send
+            </button>
+          </div>
         </div>
       </div>
     </div>

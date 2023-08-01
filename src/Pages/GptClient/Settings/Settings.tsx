@@ -43,7 +43,6 @@ export default function Settings({ setSettings }: IProps) {
 
   return (
     <div className={styles.back}>
-      <div className={styles.title}>@ebbe.dev</div>
       <div className={styles.subTitle}>Settings</div>
 
       <div className={styles.modelContainer}>
@@ -57,7 +56,7 @@ export default function Settings({ setSettings }: IProps) {
         <label htmlFor="apiKey">API Key</label>
         <input
           id="apiKey"
-          type="text"
+          type="password"
           value={apiKey}
           onChange={handleApiKeyChange}
         />

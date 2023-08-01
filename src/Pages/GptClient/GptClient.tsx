@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import styles from "./GptClient.module.css";
 
 // Components
-import Chats from "./Chats/Chats";
 import ChatFlow from "./ChatFlow/ChatFlow";
-import Settings from "./Settings/Settings";
+// import Settings from "./Settings/Settings";
+import SettingsModal from "./SettingsModal/SettingsModal";
 
 const defaultSettings = {
   model: "gpt-3.5-turbo",
@@ -14,18 +14,30 @@ const defaultSettings = {
 
 export default function GptClient() {
   const [settings, setSettings] = useState(defaultSettings);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
-    console.log(settings); // Log settings whenever they change
+    console.log(settings);
   }, [settings]);
 
+  function openModal() {
+    setModalOpen(true);
+  }
+
+  function closeModal() {
+    setModalOpen(false);
+  }
+
   return (
-    <div className={styles.body}>
-      <Chats />
+    <div className={styles.pageBody}>
       <div className={styles.mainContent}>
-        <ChatFlow settings={settings} />
+        <SettingsModal
+          setSettings={setSettings}
+          modalOpen={modalOpen}
+          closeModal={closeModal}
+        />
+        <ChatFlow settings={settings} openModal={openModal} />
       </div>
-      <Settings setSettings={setSettings} />
     </div>
   );
 }

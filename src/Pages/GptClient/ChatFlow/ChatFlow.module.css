@@ -1,8 +1,8 @@
 @import "/src/index.css";
 
 .back {
-  height: 1px;
   flex-grow: 1;
+  height: 100%;
   font-family: var(--font-family-play);
   color: var(--primary-text-color);
   display: flex;
@@ -49,7 +49,6 @@
   align-items: center;
   padding: 35px;
   box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.2);
-  position: relative;
   z-index: 9;
 }
 
@@ -72,11 +71,9 @@
   background-color: transparent;
 }
 
-.sendButton {
-  align-self: flex-end;
+.sendButton,
+.settingsButton {
   width: fit-content;
-  background-color: #235e25;
-  color: rgb(206, 206, 206);
   border: none;
   border-radius: 4px;
   padding: 12px 20px;
@@ -85,6 +82,30 @@
   transition: 0.15s;
 }
 
-.sendButton:hover {
+.sendButton {
+  background-color: #235e25;
+  color: rgb(206, 206, 206);
+}
+
+.settingsButton {
+  background-color: transparent;
+  color: rgb(206, 206, 206);
+  border: 1px solid rgb(206, 206, 206);
+  margin-right: var(--s-xxs);
+}
+
+.settingsButton > * {
+  transform: translateY(2px);
+}
+
+.sendButton:hover,
+.settingsButton:hover {
   color: white;
+  border-color: white;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 }

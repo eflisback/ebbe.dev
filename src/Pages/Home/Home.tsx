@@ -10,6 +10,7 @@ import Header from "./Header/Header";
 // Pages
 import Welcome from "../Welcome/Welcome";
 import TestPage1 from "../TestPage1/TestPage1";
+import GptClient from "../GptClient/GptClient";
 
 import FourZeroFour from "./FourZeroFour/FourZeroFour";
 
@@ -28,6 +29,7 @@ const pages: IPage[] = [
   {
     displayText: "Custom GPT Client",
     id: "gpt",
+    component: <GptClient />,
   },
   {
     displayText: "Test-page 1",
