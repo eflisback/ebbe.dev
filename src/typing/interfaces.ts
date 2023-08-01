@@ -4,3 +4,7 @@ interface IPage {
   component?: JSX.Element;
 }
 
+interface MyData {
+  key: string;
+  value: any;
+}
