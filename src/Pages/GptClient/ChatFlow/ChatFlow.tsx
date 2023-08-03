@@ -60,7 +60,6 @@ export default function ChatFlow({ settings, openModal }: IProps) {
   }, [messages]);
 
   async function handleMessageSend() {
-    console.log("Sending message:", inputValue);
     if (!inputValue.trim()) return;
 
     setMessages((prevMessages) => [
@@ -94,8 +93,6 @@ export default function ChatFlow({ settings, openModal }: IProps) {
       );
 
       const response_text = response.data.choices[0].message!.content!.trim();
-
-      console.log("Response:", response_text);
 
       const codeRegex = /```([\s\S]*?)```/g;
       const blocks: MessageBlock[] = [];
@@ -183,7 +180,6 @@ export default function ChatFlow({ settings, openModal }: IProps) {
               type="button"
               className={styles.sendButton}
               onClick={() => {
-                console.log("Button clicked.");
                 handleMessageSend()
                   .then()
                   .catch((error) => {
