@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./SettingsModal.module.css";
 import { AiOutlineClose } from "react-icons/ai";
 
 interface IProps {
+  settings: {
+    model: string;
+    api_key: string;
+    chatHistoryMemory: number;
+  };
   setSettings: React.Dispatch<
     React.SetStateAction<{
       model: string;
@@ -15,13 +20,32 @@ interface IProps {
 }
 
 export default function SettingsModal({
+  settings,
   setSettings,
   modalOpen,
   closeModal,
 }: IProps) {
-  const [model, setModel] = useState("gpt-3.5-turbo");
+  const [model, setModel] = useState("");
   const [apiKey, setApiKey] = useState("");
-  const [chatHistoryMemory, setChatHistoryMemory] = useState(3);
+  const [chatHistoryMemory, setChatHistoryMemory] = useState(0);
+
+  useEffect(() => {
+    if (settings) {
+      setModel(settings.model);
+    }
+  }, [settings]);
+
+  useEffect(() => {
+    if (settings) {
+      setApiKey(settings.api_key);
+    }
+  }, [settings]);
+
+  useEffect(() => {
+    if (settings) {
+      setChatHistoryMemory(settings.chatHistoryMemory);
+    }
+  }, [settings]);
 
   const handleModelChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setModel(e.target.value);
@@ -35,9 +59,9 @@ export default function SettingsModal({
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const value = parseInt(e.target.value);
-    if (!isNaN(value) && value >= 1 && value <= 10) {
+    if (!isNaN(value)) {
       setChatHistoryMemory(value);
-    }
+    } else setChatHistoryMemory(0);
   };
 
   const handleSaveSettings = () => {
@@ -60,6 +84,8 @@ export default function SettingsModal({
     event.stopPropagation(); // Prevent the click from reaching the modal element
     closeModal();
   };
+
+  console.log(settings);
 
   return (
     <div>

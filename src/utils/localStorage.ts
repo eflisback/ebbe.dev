@@ -1,4 +1,4 @@
-// This function should be tried/caught
+// This function should called inside a try/catch
 export function saveDataToLocalStorage(data: MyData): void {
   const serializedData = JSON.stringify(data.value);
   localStorage.setItem(data.key, serializedData);

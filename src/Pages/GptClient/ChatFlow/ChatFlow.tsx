@@ -126,8 +126,14 @@ export default function ChatFlow({ settings, openModal }: IProps) {
         ...prevMessages,
         new Message("model", blocks),
       ]);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error:", error);
+      const errorMessage = `An error occurred: ${error.message}`;
+
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        new Message("system", [new MessageBlock(errorMessage, false)]),
+      ]);
     }
   }
 
