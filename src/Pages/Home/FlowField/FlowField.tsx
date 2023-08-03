@@ -167,7 +167,6 @@ export default function FlowField() {
     const effect = new Effect(canvas.width, canvas.height);
     effect.render(ctx);
     animate(ctx, effect);
-    console.log(effect);
   }, []);
 
   return <canvas className={styles.canvas} ref={canvasRef}></canvas>;

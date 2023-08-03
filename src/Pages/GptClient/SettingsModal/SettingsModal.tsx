@@ -85,8 +85,6 @@ export default function SettingsModal({
     closeModal();
   };
 
-  console.log(settings);
-
   return (
     <div>
       {modalOpen && (

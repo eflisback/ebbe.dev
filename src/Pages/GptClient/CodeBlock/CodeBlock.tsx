@@ -5,16 +5,11 @@ interface IProps {
 }
 
 export default function CodeBlock({ code }: IProps) {
-  console.log(code);
   const languageName = code.split("\n")[0];
   const remainingCode = code.split("\n").slice(1).join("\n");
 
   const handleCopyClick = () => {
-    console.log("Attempting to copy.");
-    navigator.clipboard
-      .writeText(remainingCode)
-      .then(() => console.log("waddawadda"))
-      .catch((e) => console.log(e));
+    navigator.clipboard.writeText(remainingCode).then().catch();
   };
 
   return (
