@@ -2,11 +2,6 @@ import React, { useState } from "react";
 import styles from "./Settings.module.css";
 
 interface IProps {
-  initialSettings: {
-    model: string;
-    api_key: string;
-    chatHistoryMemory: number;
-  };
   setSettings: React.Dispatch<
     React.SetStateAction<{
       model: string;

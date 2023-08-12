@@ -24,21 +24,18 @@ export default function GptClient() {
 
   useEffect(() => {
     const storedSettings = getDataFromLocalStorage(defaultSettings.key);
-    console.log("Searching for stored settings...");
     if (storedSettings) {
-      console.log("Stored settings found!");
       setSettings(storedSettings);
     }
   }, []);
 
   useEffect(() => {
-    console.log("Saving settings...");
     try {
       saveDataToLocalStorage({ key: defaultSettings.key, value: settings });
     } catch (error) {
       console.error("Error saving data to local storage:", error);
     }
-  }, [settings]); // The effect will re-run whenever 'settings' state changes
+  }, [settings]);
 
   function openModal() {
     setModalOpen(true);

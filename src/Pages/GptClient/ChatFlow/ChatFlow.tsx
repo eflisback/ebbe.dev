@@ -3,9 +3,24 @@ import styles from "./ChatFlow.module.css";
 import { OpenAIApi } from "openai";
 import { Configuration } from "openai/dist/configuration";
 import { FiSettings } from "react-icons/fi";
+import {
+  getDataFromLocalStorage,
+  saveDataToLocalStorage,
+} from "../../../utils/localStorage";
+
+import { generateUniqueId } from "../../../utils/createUniqueId";
 
 // Components
 import CodeBlock from "../CodeBlock/CodeBlock";
+
+interface IProps {
+  settings: {
+    model: string;
+    api_key: string;
+    chatHistoryMemory: number;
+  };
+  openModal: () => void;
+}
 
 class MessageBlock {
   public content: string;
@@ -29,15 +44,6 @@ class Message {
   }
 }
 
-interface IProps {
-  settings: {
-    model: string;
-    api_key: string;
-    chatHistoryMemory: number;
-  };
-  openModal: () => void;
-}
-
 type ChatCompletionRequestMessage = {
   role: "system" | "user" | "assistant";
   content: string;
@@ -46,6 +52,7 @@ type ChatCompletionRequestMessage = {
 export default function ChatFlow({ settings, openModal }: IProps) {
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
+  const [currentSessionId, setCurrentSessionId] = useState("");
   const messageFlowRef = useRef<HTMLDivElement>(null);
 
   const configuration = new Configuration({
@@ -54,9 +61,58 @@ export default function ChatFlow({ settings, openModal }: IProps) {
   const openai = new OpenAIApi(configuration);
 
   useEffect(() => {
+    console.log("Attempting to load latest chat");
+    const chatsData: IChats = getDataFromLocalStorage("chats");
+    if (chatsData) {
+      console.log("Seems like we found data!");
+      let latestChat: IChat;
+      chatsData.chats.forEach((chat: IChat) => {
+        if (!latestChat || chat.timestamp > latestChat.timestamp) {
+          latestChat = chat;
+        }
+      });
+      console.log("Setting current session ID:", latestChat!.id);
+      setCurrentSessionId(latestChat!.id);
+      console.log("Setting messages:", latestChat!.messages);
+      setMessages(latestChat!.messages);
+    } else {
+      console.log("No previous chats found");
+      const newChatId = generateUniqueId();
+      console.log("Generating new chat ID:", newChatId);
+      setCurrentSessionId(newChatId);
+    }
+  }, []);
+
+  useEffect(() => {
     if (messageFlowRef.current) {
       messageFlowRef.current.scrollTop = messageFlowRef.current.scrollHeight;
     }
+
+    // Save the chat state to local storage whenever messages change
+    const chatsData: IChats = getDataFromLocalStorage("chats") || { chats: [] };
+    const existingChatIndex = chatsData.chats.findIndex(
+      (chat) => chat.id === currentSessionId
+    );
+
+    if (existingChatIndex !== -1) {
+      // Update existing chat
+      chatsData.chats[existingChatIndex].messages = messages;
+      chatsData.chats[existingChatIndex].timestamp = new Date();
+      console.log("Updated existing chat:", chatsData.chats[existingChatIndex]);
+    } else {
+      // Create new chat
+      const newChat: IChat = {
+        id: currentSessionId,
+        name: "Chat Room", // You can customize the name as needed
+        timestamp: new Date(),
+        messages: messages,
+      };
+      chatsData.chats.push(newChat);
+      console.log("Created new chat:", newChat);
+    }
+
+    saveDataToLocalStorage({ key: "chats", value: chatsData });
+    console.log("Saved chat data to local storage:", chatsData);
   }, [messages]);
 
   async function handleMessageSend() {
