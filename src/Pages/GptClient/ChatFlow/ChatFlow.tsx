@@ -199,6 +199,13 @@ export default function ChatFlow({ settings, openModal }: IProps) {
     setMessages([]);
   }
 
+  function handleKeyPress(event: React.KeyboardEvent<HTMLTextAreaElement>) {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      handleMessageSend();
+    }
+  }
+
   return (
     <div className={styles.back}>
       <div className={styles.messageFlow} ref={messageFlowRef}>
@@ -232,6 +239,7 @@ export default function ChatFlow({ settings, openModal }: IProps) {
             placeholder="Type your message..."
             value={inputValue}
             onChange={handleInputChange}
+            onKeyDown={handleKeyPress}
           />
           <div className={styles.buttons}>
             <button
