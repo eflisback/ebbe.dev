@@ -23,7 +23,7 @@ class Particle {
     this.speedY = 0;
     this.speedModifier = Math.floor(Math.random() * 2 + 1);
     this.history = [{ x: this.x, y: this.y }];
-    this.maxLenght = Math.floor(Math.random() * 100 + 10);
+    this.maxLenght = Math.floor(Math.random() * 300 + 10);
     this.angle = 0;
     this.timer = this.maxLenght * 2;
     this.colors = ["#34ebe8", "#24ed4c", "#f562e6"];
@@ -81,31 +81,44 @@ class Effect {
   private curve: number;
   private zoom: number;
 
-  constructor(width: number, height: number) {
+  constructor(
+    width: number,
+    height: number,
+    context: CanvasRenderingContext2D
+  ) {
     this.width = width;
     this.height = height;
     this.particles = [];
-    this.numberOfParticles = 1000;
+    this.numberOfParticles = 100;
     this.cellSize = 20;
     this.rows = 0;
     this.columns = 0;
     this.flowField = [];
     this.curve = 0.3;
     this.zoom = 0.13;
-    this.init();
+    this.init(context);
   }
   drawText(context: CanvasRenderingContext2D) {
-    context.font = "500px Impact";
+    context.font = "350px Impact";
     context.fillStyle = "white";
     context.textAlign = "center";
     context.textBaseline = "middle";
     context.fillText("ebbe.dev", this.width * 0.5, this.height * 0.5);
   }
-  init() {
+  init(context: CanvasRenderingContext2D) {
     // Flow field
     this.rows = Math.floor(this.height / this.cellSize);
     this.columns = Math.floor(this.width / this.cellSize);
     this.flowField = [];
+
+    this.drawText(context);
+
+    const pixels: ImageData = context.getImageData(
+      0,
+      0,
+      this.width,
+      this.height
+    );
 
     for (let y = 0; y < this.rows; y++) {
       for (let x = 0; x < this.columns; x++) {
@@ -130,7 +143,7 @@ class Effect {
 }
 
 function animate(context: CanvasRenderingContext2D, effect: Effect) {
-  context.fillStyle = "rgba(0, 0, 0, 0.8)";
+  context.fillStyle = "rgba(0, 0, 0, 1)";
   context.fillRect(0, 0, window.innerWidth, window.innerHeight);
   effect.render(context);
   requestAnimationFrame(() => animate(context, effect));
@@ -164,7 +177,7 @@ export default function FlowField() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const effect = new Effect(canvas.width, canvas.height);
+    const effect = new Effect(canvas.width, canvas.height, ctx);
     effect.render(ctx);
     animate(ctx, effect);
     console.log(effect);
