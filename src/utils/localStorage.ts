@@ -4,7 +4,7 @@ export function saveDataToLocalStorage(data: MyData): void {
   localStorage.setItem(data.key, serializedData);
 }
 
-export function getDataFromLocalStorage(key: string): any | null {
+export function getDataFromLocalStorage(key: string): unknown {
   try {
     const serializedData = localStorage.getItem(key);
     if (serializedData === null) {
@@ -12,7 +12,6 @@ export function getDataFromLocalStorage(key: string): any | null {
     }
     return JSON.parse(serializedData);
   } catch (error) {
-    // Handle error (e.g., invalid JSON)
     console.error("Error getting data from local storage:", error);
     return null;
   }

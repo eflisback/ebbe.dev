@@ -63,7 +63,9 @@ export default function ChatFlow({ settings, openModal }: IProps) {
 
   useEffect(() => {
     console.log("Attempting to load latest chat");
-    const chatsData: IChats = getDataFromLocalStorage("chats");
+    const chatsData: IChats | null = getDataFromLocalStorage(
+      "chats"
+    ) as IChats | null;
     if (chatsData) {
       console.log("Seems like we found data!");
       let latestChat: IChat;
@@ -89,22 +91,21 @@ export default function ChatFlow({ settings, openModal }: IProps) {
       messageFlowRef.current.scrollTop = messageFlowRef.current.scrollHeight;
     }
 
-    // Save the chat state to local storage whenever messages change
-    const chatsData: IChats = getDataFromLocalStorage("chats") || { chats: [] };
+    const chatsData: IChats = (getDataFromLocalStorage("chats") as IChats) || {
+      chats: [],
+    };
     const existingChatIndex = chatsData.chats.findIndex(
       (chat) => chat.id === currentSessionId
     );
 
     if (existingChatIndex !== -1) {
-      // Update existing chat
       chatsData.chats[existingChatIndex].messages = messages;
       chatsData.chats[existingChatIndex].timestamp = new Date();
       console.log("Updated existing chat:", chatsData.chats[existingChatIndex]);
     } else {
-      // Create new chat
       const newChat: IChat = {
         id: currentSessionId,
-        name: "Chat Room", // You can customize the name as needed
+        name: "Chat Room",
         timestamp: new Date(),
         messages: messages,
       };
@@ -114,7 +115,7 @@ export default function ChatFlow({ settings, openModal }: IProps) {
 
     saveDataToLocalStorage({ key: "chats", value: chatsData });
     console.log("Saved chat data to local storage:", chatsData);
-  }, [messages]);
+  }, [messages, currentSessionId]);
 
   async function handleMessageSend() {
     if (!inputValue.trim()) return;
@@ -180,11 +181,11 @@ export default function ChatFlow({ settings, openModal }: IProps) {
         ...prevMessages,
         new Message("model", blocks),
       ]);
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error:", error);
-      const errorMessage = `An error occurred: ${error.message}`;
+      const errorMessage = `An error occurred: ${(error as Error).message}`;
 
-      setMessages((prevMessages) => [
+      setMessages((prevMessages: Message[]) => [
         ...prevMessages,
         new Message("system", [new MessageBlock(errorMessage, false)]),
       ]);
@@ -202,7 +203,7 @@ export default function ChatFlow({ settings, openModal }: IProps) {
   function handleKeyPress(event: React.KeyboardEvent<HTMLTextAreaElement>) {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
-      handleMessageSend();
+      void handleMessageSend();
     }
   }
 
