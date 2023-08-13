@@ -1,0 +1,29 @@
+@import "../../index.css";
+
+.main {
+  width: 100%;
+  height: 100%;
+  padding: var(--s-m) var(--s-xl);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.title {
+  color: var(--green-text-color);
+  font-size: var(--s-m);
+}
+
+p {
+  font-size: var(--s-xs);
+  color: gray;
+}
+
+.linkButtonContainer {
+  width: 100%;
+  margin-top: var(--s-m);
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+}

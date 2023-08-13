@@ -2,9 +2,26 @@ import React, { useState, useRef, useEffect } from "react";
 import styles from "./ChatFlow.module.css";
 import { OpenAIApi } from "openai";
 import { Configuration } from "openai/dist/configuration";
+import { FiSettings } from "react-icons/fi";
+import { AiOutlineDelete } from "react-icons/ai";
+import {
+  getDataFromLocalStorage,
+  saveDataToLocalStorage,
+} from "../../../utils/localStorage";
+
+import { generateUniqueId } from "../../../utils/createUniqueId";
 
 // Components
 import CodeBlock from "../CodeBlock/CodeBlock";
+
+interface IProps {
+  settings: {
+    model: string;
+    api_key: string;
+    chatHistoryMemory: number;
+  };
+  openModal: () => void;
+}
 
 class MessageBlock {
   public content: string;
@@ -28,22 +45,15 @@ class Message {
   }
 }
 
-interface IProps {
-  settings: {
-    model: string;
-    api_key: string;
-    chatHistoryMemory: number;
-  };
-}
-
 type ChatCompletionRequestMessage = {
   role: "system" | "user" | "assistant";
   content: string;
 };
 
-export default function ChatFlow({ settings }: IProps) {
+export default function ChatFlow({ settings, openModal }: IProps) {
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
+  const [currentSessionId, setCurrentSessionId] = useState("");
   const messageFlowRef = useRef<HTMLDivElement>(null);
 
   const configuration = new Configuration({
@@ -52,13 +62,61 @@ export default function ChatFlow({ settings }: IProps) {
   const openai = new OpenAIApi(configuration);
 
   useEffect(() => {
+    console.log("Attempting to load latest chat");
+    const chatsData: IChats = getDataFromLocalStorage("chats");
+    if (chatsData) {
+      console.log("Seems like we found data!");
+      let latestChat: IChat;
+      chatsData.chats.forEach((chat: IChat) => {
+        if (!latestChat || chat.timestamp > latestChat.timestamp) {
+          latestChat = chat;
+        }
+      });
+      console.log("Setting current session ID:", latestChat!.id);
+      setCurrentSessionId(latestChat!.id);
+      console.log("Setting messages:", latestChat!.messages);
+      setMessages(latestChat!.messages);
+    } else {
+      console.log("No previous chats found");
+      const newChatId = generateUniqueId();
+      console.log("Generating new chat ID:", newChatId);
+      setCurrentSessionId(newChatId);
+    }
+  }, []);
+
+  useEffect(() => {
     if (messageFlowRef.current) {
       messageFlowRef.current.scrollTop = messageFlowRef.current.scrollHeight;
     }
+
+    // Save the chat state to local storage whenever messages change
+    const chatsData: IChats = getDataFromLocalStorage("chats") || { chats: [] };
+    const existingChatIndex = chatsData.chats.findIndex(
+      (chat) => chat.id === currentSessionId
+    );
+
+    if (existingChatIndex !== -1) {
+      // Update existing chat
+      chatsData.chats[existingChatIndex].messages = messages;
+      chatsData.chats[existingChatIndex].timestamp = new Date();
+      console.log("Updated existing chat:", chatsData.chats[existingChatIndex]);
+    } else {
+      // Create new chat
+      const newChat: IChat = {
+        id: currentSessionId,
+        name: "Chat Room", // You can customize the name as needed
+        timestamp: new Date(),
+        messages: messages,
+      };
+      chatsData.chats.push(newChat);
+      console.log("Created new chat:", newChat);
+    }
+
+    saveDataToLocalStorage({ key: "chats", value: chatsData });
+    console.log("Saved chat data to local storage:", chatsData);
   }, [messages]);
 
   async function handleMessageSend() {
-    console.log("Sending message:", inputValue);
     if (!inputValue.trim()) return;
 
     setMessages((prevMessages) => [
@@ -93,8 +151,6 @@ export default function ChatFlow({ settings }: IProps) {
 
       const response_text = response.data.choices[0].message!.content!.trim();
 
-      console.log("Response:", response_text);
-
       const codeRegex = /```([\s\S]*?)```/g;
       const blocks: MessageBlock[] = [];
       let match;
@@ -124,14 +180,31 @@ export default function ChatFlow({ settings }: IProps) {
         ...prevMessages,
         new Message("model", blocks),
       ]);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error:", error);
+      const errorMessage = `An error occurred: ${error.message}`;
+
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        new Message("system", [new MessageBlock(errorMessage, false)]),
+      ]);
     }
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value);
   };
+
+  function clearCurrentChat() {
+    setMessages([]);
+  }
+
+  function handleKeyPress(event: React.KeyboardEvent<HTMLTextAreaElement>) {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      handleMessageSend();
+    }
+  }
 
   return (
     <div className={styles.back}>
@@ -166,21 +239,32 @@ export default function ChatFlow({ settings }: IProps) {
             placeholder="Type your message..."
             value={inputValue}
             onChange={handleInputChange}
+            onKeyDown={handleKeyPress}
           />
-          <button
-            type="button"
-            className={styles.sendButton}
-            onClick={() => {
-              console.log("Button clicked.");
-              handleMessageSend()
-                .then()
-                .catch((error) => {
-                  console.error("Error:", error);
-                });
-            }}
-          >
-            Send
-          </button>
+          <div className={styles.buttons}>
+            <button
+              onClick={clearCurrentChat}
+              className={styles.settingsButton}
+            >
+              <AiOutlineDelete />
+            </button>
+            <button onClick={openModal} className={styles.settingsButton}>
+              <FiSettings />
+            </button>
+            <button
+              type="button"
+              className={styles.sendButton}
+              onClick={() => {
+                handleMessageSend()
+                  .then()
+                  .catch((error) => {
+                    console.error("Error:", error);
+                  });
+              }}
+            >
+              Send
+            </button>
+          </div>
         </div>
       </div>
     </div>

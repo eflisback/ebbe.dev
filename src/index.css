@@ -6,9 +6,40 @@
   --primary-text-color: white;
   --green-text-color: rgb(149, 255, 221);
   --secondary-text-color: rgb(189, 189, 189);
+  --shadow-color-1: rgba(149, 255, 221, 1);
+  --shadow-color-2: rgb(102, 192, 163);
+  --shadow-color-3: rgb(52, 116, 96);
+  --shadow-color-4: rgb(27, 79, 62);
+
+  --s-xxl: 70px;
+  --s-xl: 60px;
+  --s-l: 50px;
+  --s-m: 40px;
+  --s-s: 30px;
+  --s-xs: 20px;
+  --s-xxs: 10px;
 }
 
 body {
   margin: 0;
   padding: 0;
+}
+
+.body {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  background-color: var(--primary-background-color);
+  color: white;
+  font-family: var(--font-family-play);
+}
+
+.pageBody {
+  width: 100%;
+  min-height: 0px;
+  flex: 1;
+}
+
+@media (max-width: 1250px) {
 }

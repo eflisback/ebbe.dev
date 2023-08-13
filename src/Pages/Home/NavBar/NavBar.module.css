@@ -1,0 +1,89 @@
+@import "../../../index.css";
+
+.main {
+  padding: var(--s-s) var(--s-s);
+  box-sizing: border-box;
+  font: var(--font-family-play);
+  background-color: var(--secondary-background-color);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+section {
+  margin-bottom: var(--s-m);
+}
+
+section:last-of-type {
+  margin-bottom: 0;
+}
+
+.title {
+  text-align: center;
+  font-size: var(--s-s);
+  color: var(--green-text-color);
+}
+
+.subHeader {
+  margin-bottom: var(--s-xxs);
+  font-size: var(--s-xs);
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+}
+
+.links a,
+.socials a {
+  font-size: calc((var(--s-xxs) + var(--s-xs)) / 2);
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  cursor: pointer;
+  width: fit-content;
+  padding: 0;
+  margin: var(--s-xxs) 0;
+  margin-left: var(--s-xxs);
+  text-decoration: none;
+  color: gray;
+  transition: 0.15s;
+}
+
+.icon {
+  display: inline-block;
+  transform: translateY(2px);
+  margin-right: calc(var(--s-xxs) / 2);
+}
+
+.active {
+  color: var(--green-text-color) !important;
+}
+
+.links a:hover,
+.socials a:hover {
+  color: lightgray;
+}
+
+.socials {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: var(--s-m);
+}
+
+.socials a {
+  margin-right: var(--s-xxs);
+  margin-left: 0;
+  font-size: var(--s-xs);
+}
+
+.socials a:first-of-type {
+  margin-left: 3px;
+}
+
+.socials a:last-of-type {
+  margin-right: 0;
+}

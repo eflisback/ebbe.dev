@@ -1,0 +1,64 @@
+@import "../../../index.css";
+
+.main {
+  padding: var(--s-xxs) 0;
+  text-decoration: none;
+  color: unset;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  box-sizing: border-box;
+  transition: 0.1s;
+  background-color: var(--secondary-background-color);
+  box-shadow: 5px 4px 0 rgba(149, 255, 221, 1), 10px 8px 0 rgb(102, 192, 163),
+    15px 12px 0 rgb(52, 116, 96), 20px 16px 0 rgb(27, 79, 62);
+  margin-bottom: var(--s-m);
+  margin-right: var(--s-xl);
+  min-width: 250px;
+}
+
+.main:hover {
+  background-color: rgb(33, 33, 33);
+}
+
+.header,
+.content,
+.footer {
+  margin: 0 var(--s-xs);
+  padding: var(--s-xxs) 0;
+}
+
+.content span {
+  display: inline-block;
+  max-width: 200px;
+}
+
+.header {
+  color: white;
+  font-size: var(--s-xs);
+  border-bottom: 1px solid white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.header span:first-of-type,
+.footer span:last-of-type {
+  margin: 0 calc(var(--s-xxs) / 2);
+  transform: translateY(3px);
+}
+
+.content,
+.footer {
+  color: gray;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  border-top: 1px solid white;
+  text-decoration: underline;
+  font-size: var(--s-xss);
+}
