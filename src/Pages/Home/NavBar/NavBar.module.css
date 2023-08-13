@@ -22,7 +22,7 @@ section:last-of-type {
 
 .title {
   text-align: center;
-  font-size: var(--s-s);
+  font-size: var(--s-m);
   color: var(--green-text-color);
 }
 

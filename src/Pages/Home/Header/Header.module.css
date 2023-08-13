@@ -6,8 +6,8 @@
   width: 100%;
   display: flex;
   color: rgb(61, 61, 61);
-  padding: var(--s-xs) 0;
-  font-size: var(--s-l);
+  padding: var(--s-s) 0;
+  font-size: var(--s-m);
 }
 
 .main span {
