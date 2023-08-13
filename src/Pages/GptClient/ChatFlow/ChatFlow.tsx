@@ -3,6 +3,7 @@ import styles from "./ChatFlow.module.css";
 import { OpenAIApi } from "openai";
 import { Configuration } from "openai/dist/configuration";
 import { FiSettings } from "react-icons/fi";
+import { AiOutlineDelete } from "react-icons/ai";
 import {
   getDataFromLocalStorage,
   saveDataToLocalStorage,
@@ -194,6 +195,10 @@ export default function ChatFlow({ settings, openModal }: IProps) {
     setInputValue(e.target.value);
   };
 
+  function clearCurrentChat() {
+    setMessages([]);
+  }
+
   return (
     <div className={styles.back}>
       <div className={styles.messageFlow} ref={messageFlowRef}>
@@ -229,6 +234,12 @@ export default function ChatFlow({ settings, openModal }: IProps) {
             onChange={handleInputChange}
           />
           <div className={styles.buttons}>
+            <button
+              onClick={clearCurrentChat}
+              className={styles.settingsButton}
+            >
+              <AiOutlineDelete />
+            </button>
             <button onClick={openModal} className={styles.settingsButton}>
               <FiSettings />
             </button>
