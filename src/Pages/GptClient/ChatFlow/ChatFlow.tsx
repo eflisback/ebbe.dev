@@ -3,7 +3,8 @@ import styles from "./ChatFlow.module.css";
 import { OpenAIApi } from "openai";
 import { Configuration } from "openai/dist/configuration";
 import { FiSettings } from "react-icons/fi";
-import { AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlineSend } from "react-icons/ai";
+import { BsChatLeftDots } from "react-icons/bs";
 import {
   getDataFromLocalStorage,
   saveDataToLocalStorage,
@@ -107,10 +108,11 @@ export default function ChatFlow({ settings, openModal }: IProps) {
         id: currentSessionId,
         name: "Chat Room",
         timestamp: new Date(),
-        messages: messages,
+        messages: [],
       };
       chatsData.chats.push(newChat);
       console.log("Created new chat:", newChat);
+      setMessages(newChat.messages);
     }
 
     saveDataToLocalStorage({ key: "chats", value: chatsData });
@@ -200,6 +202,13 @@ export default function ChatFlow({ settings, openModal }: IProps) {
     setMessages([]);
   }
 
+  function createNewChat() {
+    console.log("New chat button pressed");
+    const newChatId = generateUniqueId();
+    console.log("Generating new chat ID:", newChatId);
+    setCurrentSessionId(newChatId);
+  }
+
   function handleKeyPress(event: React.KeyboardEvent<HTMLTextAreaElement>) {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
@@ -243,28 +252,36 @@ export default function ChatFlow({ settings, openModal }: IProps) {
             onKeyDown={handleKeyPress}
           />
           <div className={styles.buttons}>
-            <button
-              onClick={clearCurrentChat}
-              className={styles.settingsButton}
-            >
-              <AiOutlineDelete />
-            </button>
-            <button onClick={openModal} className={styles.settingsButton}>
-              <FiSettings />
-            </button>
-            <button
-              type="button"
-              className={styles.sendButton}
-              onClick={() => {
-                handleMessageSend()
-                  .then()
-                  .catch((error) => {
-                    console.error("Error:", error);
-                  });
-              }}
-            >
-              Send
-            </button>
+            <div>
+              <button onClick={createNewChat} className={styles.newChatButton}>
+                <span>New chat</span>
+                <BsChatLeftDots />
+              </button>
+            </div>
+            <div>
+              <button
+                onClick={clearCurrentChat}
+                className={styles.clearChatButton}
+              >
+                <AiOutlineDelete />
+              </button>
+              <button onClick={openModal} className={styles.settingsButton}>
+                <FiSettings />
+              </button>
+              <button
+                type="button"
+                className={styles.sendButton}
+                onClick={() => {
+                  handleMessageSend()
+                    .then()
+                    .catch((error) => {
+                      console.error("Error:", error);
+                    });
+                }}
+              >
+                <AiOutlineSend />
+              </button>
+            </div>
           </div>
         </div>
       </div>
