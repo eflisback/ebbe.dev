@@ -58,7 +58,7 @@ const aboutPages: IPage[] = [
 ];
 
 export default function Home() {
-  let location = useLocation();
+  const location = useLocation();
   const [activePageId, setActivePageId] = useState(pages[0].id);
 
   const activePage = useMemo(() => {
