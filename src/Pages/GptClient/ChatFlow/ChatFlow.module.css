@@ -83,6 +83,9 @@
   padding: 12px 20px;
   font-size: 16px;
   cursor: pointer;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   transition: 0.15s;
 }
 
@@ -92,11 +95,16 @@
   color: rgb(206, 206, 206);
 }
 
-.settingsButton,
 .clearChatButton {
+  color: rgb(206, 206, 206);
+  background-color: rgb(126, 21, 21);
+
+  margin-right: var(--s-xxs);
+}
+
+.settingsButton {
   background-color: transparent;
   color: rgb(206, 206, 206);
-  border: 1px solid rgb(206, 206, 206);
   margin-right: var(--s-xxs);
 }
 
