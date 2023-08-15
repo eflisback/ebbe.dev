@@ -41,5 +41,50 @@ body {
   flex: 1;
 }
 
-@media (max-width: 1250px) {
+@media screen and (max-width: 1200px) {
+  :root {
+    --s-xxl: 65px;
+    --s-xl: 55px;
+    --s-l: 45px;
+    --s-m: 35px;
+    --s-s: 25px;
+    --s-xs: 15px;
+    --s-xxs: 5px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  :root {
+    --s-xxl: 60px;
+    --s-xl: 50px;
+    --s-l: 40px;
+    --s-m: 30px;
+    --s-s: 20px;
+    --s-xs: 15px;
+    --s-xxs: 5px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  :root {
+    --s-xxl: 40px;
+    --s-xl: 30px;
+    --s-l: 25px;
+    --s-m: 20px;
+    --s-s: 15px;
+    --s-xs: 10px;
+    --s-xxs: 5px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  :root {
+    --s-xxl: 30px;
+    --s-xl: 25px;
+    --s-l: 20px;
+    --s-m: 15px;
+    --s-s: 10px;
+    --s-xs: 5px;
+    --s-xxs: 2px;
+  }
 }
