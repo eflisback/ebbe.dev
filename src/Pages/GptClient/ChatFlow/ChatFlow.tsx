@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import styles from "./ChatFlow.module.css";
 import { OpenAIApi } from "openai";
 import { Configuration } from "openai/dist/configuration";
-import { FiSettings } from "react-icons/fi";
+import { FiSettings, FiMenu } from "react-icons/fi";
 import { AiOutlineDelete, AiOutlineSend } from "react-icons/ai";
 import { BsChatLeftDots } from "react-icons/bs";
 import {
@@ -181,7 +181,7 @@ export default function ChatFlow({ settings, openModal }: IProps) {
 
       setMessages((prevMessages) => [
         ...prevMessages,
-        new Message("model", blocks),
+        new Message(`model (${settings.model})`, blocks),
       ]);
     } catch (error) {
       console.error("Error:", error);
@@ -245,6 +245,7 @@ export default function ChatFlow({ settings, openModal }: IProps) {
       <div className={styles.footer}>
         <div className={styles.container}>
           <textarea
+            autoFocus
             className={styles.messageInput}
             placeholder="Type your message..."
             value={inputValue}
@@ -256,6 +257,15 @@ export default function ChatFlow({ settings, openModal }: IProps) {
               <button onClick={createNewChat} className={styles.newChatButton}>
                 <span>New chat</span>
                 <BsChatLeftDots />
+              </button>
+              <button
+                onClick={() => {
+                  // test
+                }}
+                className={styles.viewChatsButton}
+              >
+                <span>Other chats</span>
+                <FiMenu />
               </button>
             </div>
             <div>

@@ -76,7 +76,8 @@
 .sendButton,
 .settingsButton,
 .clearChatButton,
-.newChatButton {
+.newChatButton,
+.viewChatsButton {
   width: fit-content;
   border: none;
   border-radius: 4px;
@@ -87,25 +88,28 @@
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   transition: 0.15s;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 8px 24px;
+  color: rgb(206, 206, 206);
 }
 
 .sendButton,
 .newChatButton {
   background-color: #235e25;
-  color: rgb(206, 206, 206);
 }
 
 .clearChatButton {
-  color: rgb(206, 206, 206);
   background-color: rgb(126, 21, 21);
-
   margin-right: var(--s-xxs);
 }
 
 .settingsButton {
-  background-color: transparent;
-  color: rgb(206, 206, 206);
+  background-color: rgb(29, 29, 68);
   margin-right: var(--s-xxs);
+}
+
+.viewChatsButton {
+  margin-left: var(--s-xxs);
+  background-color: rgb(68, 68, 68);
 }
 
 .buttons > div > button > svg {
@@ -118,7 +122,9 @@
 
 .sendButton:hover,
 .settingsButton:hover,
-.newChatButton:hover {
+.newChatButton:hover,
+.clearChatButton:hover,
+.viewChatsButton:hover {
   color: white;
   border-color: white;
 }
