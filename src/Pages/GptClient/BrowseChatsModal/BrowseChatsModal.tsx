@@ -17,13 +17,21 @@ export default function BrowseChatsModal({
   const [loadedChats, setLoadedChats] = useState<IChat[]>([]);
 
   useEffect(() => {
+    console.log("Attempting to load chat sessions");
     const chatsData: IChats | null = getDataFromLocalStorage(
       "chats"
     ) as IChats | null;
     if (chatsData) {
-      setLoadedChats(chatsData.chats);
+      // Sort chats by timestamp in descending order (newest first)
+      const sortedChats = chatsData.chats.sort((a, b) =>
+        b.timestamp instanceof Date && a.timestamp instanceof Date
+          ? b.timestamp.getTime() - a.timestamp.getTime()
+          : 0
+      );
+
+      setLoadedChats(sortedChats);
     }
-  }, []);
+  }, [modalOpen]);
 
   const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
     // Check if the click occurred outside the modalContent
@@ -50,7 +58,10 @@ export default function BrowseChatsModal({
             </div>
             <div className={styles.chatList}>
               {loadedChats.map((loadedChat) => (
-                <div onClick={() => setSelectedChatId(loadedChat.id)}>
+                <div
+                  key={loadedChat.id}
+                  onClick={() => setSelectedChatId(loadedChat.id)}
+                >
                   {loadedChat.timestamp instanceof Date
                     ? loadedChat.timestamp.toLocaleDateString()
                     : new Date(loadedChat.timestamp).toLocaleDateString()}

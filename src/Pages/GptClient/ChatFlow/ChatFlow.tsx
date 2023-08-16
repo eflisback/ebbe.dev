@@ -70,24 +70,23 @@ export default function ChatFlow({
   const openai = new OpenAIApi(configuration);
 
   useEffect(() => {
-    console.log("Attempting to load latest chat");
     const chatsData: IChats | null = getDataFromLocalStorage(
       "chats"
     ) as IChats | null;
     if (chatsData) {
-      console.log("Seems like we found data!");
-      let latestChat: IChat;
+      let latestChat: IChat | null = null;
       chatsData.chats.forEach((chat: IChat) => {
         if (!latestChat || chat.timestamp > latestChat.timestamp) {
           latestChat = chat;
         }
       });
-      console.log("Setting current session ID:", latestChat!.id);
-      setCurrentSessionId(latestChat!.id);
-      console.log("Setting messages:", latestChat!.messages);
-      setMessages(latestChat!.messages);
+      if (latestChat !== undefined) {
+        console.log("Setting current session ID:", latestChat!.id);
+        setCurrentSessionId(latestChat!.id);
+        console.log("Setting messages:", latestChat!.messages);
+        setMessages(latestChat!.messages);
+      }
     } else {
-      console.log("No previous chats found");
       const newChatId = generateUniqueId();
       console.log("Generating new chat ID:", newChatId);
       setCurrentSessionId(newChatId);
@@ -99,14 +98,33 @@ export default function ChatFlow({
     setCurrentSessionId(selectedChatId);
   }, [selectedChatId]);
 
-  // First of all, the scrollTop should update whenever the message array updates, which currently works fine
-  // When the messages change, we should also save them to the current session id in the local storage, which also works fine
-  // Third (and this might need to be in a seperate useEffect hook), whenever we change what our current session id is, we should load the messages from THAT chat
+  // useEffect hook which scrolls automatically as messages array changes
   useEffect(() => {
+    console.log("Scrolling...");
     if (messageFlowRef.current) {
       messageFlowRef.current.scrollTop = messageFlowRef.current.scrollHeight;
     }
+  }, [messages]);
 
+  // useEffect hook that loads new chat when currentSessionId changes
+  useEffect(() => {
+    const chatsData: IChats = (getDataFromLocalStorage("chats") as IChats) || {
+      chats: [],
+    };
+    const existingSession = chatsData.chats.find(
+      (chat) => chat.id === currentSessionId
+    );
+    if (existingSession) {
+      // if the chat exists
+      setMessages(existingSession.messages);
+    } else {
+      // if a new chat is created
+      setMessages([]);
+    }
+  }, [currentSessionId]);
+
+  // useEffect hook that handles saving data to active chat
+  useEffect(() => {
     const chatsData: IChats = (getDataFromLocalStorage("chats") as IChats) || {
       chats: [],
     };
@@ -123,16 +141,16 @@ export default function ChatFlow({
         id: currentSessionId,
         name: "Chat Room",
         timestamp: new Date(),
-        messages: [],
+        messages: messages,
       };
       chatsData.chats.push(newChat);
-      console.log("Created new chat:", newChat);
-      setMessages(newChat.messages);
+      console.log("Created new local save:", newChat);
     }
 
     saveDataToLocalStorage({ key: "chats", value: chatsData });
     console.log("Saved chat data to local storage:", chatsData);
-  }, [messages, currentSessionId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [messages]);
 
   async function handleMessageSend() {
     if (!inputValue.trim()) return;
