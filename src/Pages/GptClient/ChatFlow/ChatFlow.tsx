@@ -23,6 +23,7 @@ interface IProps {
   };
   openSettingsModal: () => void;
   openBrowseChatsModal: () => void;
+  selectedChatId: string;
 }
 
 class MessageBlock {
@@ -56,6 +57,7 @@ export default function ChatFlow({
   settings,
   openSettingsModal,
   openBrowseChatsModal,
+  selectedChatId,
 }: IProps) {
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
@@ -92,6 +94,14 @@ export default function ChatFlow({
     }
   }, []);
 
+  useEffect(() => {
+    console.log(`Updating current session from to ${selectedChatId}.`);
+    setCurrentSessionId(selectedChatId);
+  }, [selectedChatId]);
+
+  // First of all, the scrollTop should update whenever the message array updates, which currently works fine
+  // When the messages change, we should also save them to the current session id in the local storage, which also works fine
+  // Third (and this might need to be in a seperate useEffect hook), whenever we change what our current session id is, we should load the messages from THAT chat
   useEffect(() => {
     if (messageFlowRef.current) {
       messageFlowRef.current.scrollTop = messageFlowRef.current.scrollHeight;

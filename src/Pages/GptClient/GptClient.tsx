@@ -20,6 +20,7 @@ const defaultSettings: MyData = {
 };
 
 export default function GptClient() {
+  const [selectedChatId, setSelectedChatId] = useState("");
   const [settings, setSettings] = useState(defaultSettings.value);
   const [settingsModalOpen, setSettingsModalOpen] = useState(false);
   const [browseChatsModalOpen, setBrowseChatsModalOpen] = useState(false);
@@ -67,8 +68,10 @@ export default function GptClient() {
         <BrowseChatsModal
           modalOpen={browseChatsModalOpen}
           closeModal={closeBrowseChatsModal}
+          setSelectedChatId={setSelectedChatId}
         />
         <ChatFlow
+          selectedChatId={selectedChatId}
           settings={settings}
           openSettingsModal={openSettingsModal}
           openBrowseChatsModal={openBrowseChatsModal}

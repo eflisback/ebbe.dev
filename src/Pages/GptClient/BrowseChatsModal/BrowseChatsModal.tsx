@@ -6,9 +6,14 @@ import { getDataFromLocalStorage } from "../../../utils/localStorage";
 interface IProps {
   modalOpen: boolean;
   closeModal: () => void;
+  setSelectedChatId: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function BrowseChatsModal({ modalOpen, closeModal }: IProps) {
+export default function BrowseChatsModal({
+  modalOpen,
+  closeModal,
+  setSelectedChatId,
+}: IProps) {
   const [loadedChats, setLoadedChats] = useState<IChat[]>([]);
 
   useEffect(() => {
@@ -45,7 +50,7 @@ export default function BrowseChatsModal({ modalOpen, closeModal }: IProps) {
             </div>
             <div className={styles.chatList}>
               {loadedChats.map((loadedChat) => (
-                <div>
+                <div onClick={() => setSelectedChatId(loadedChat.id)}>
                   {loadedChat.timestamp instanceof Date
                     ? loadedChat.timestamp.toLocaleDateString()
                     : new Date(loadedChat.timestamp).toLocaleDateString()}
