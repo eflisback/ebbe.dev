@@ -1,6 +1,11 @@
 import styles from "./BrowseChatsModal.module.css";
 import { useEffect, useState } from "react";
-import { AiOutlineClose } from "react-icons/ai";
+import {
+  AiOutlineClose,
+  AiOutlineEdit,
+  AiOutlineDelete,
+  AiOutlineCheck,
+} from "react-icons/ai";
 import { getDataFromLocalStorage } from "../../../utils/localStorage";
 
 interface IProps {
@@ -15,6 +20,7 @@ export default function BrowseChatsModal({
   setSelectedChatId,
 }: IProps) {
   const [loadedChats, setLoadedChats] = useState<IChat[]>([]);
+  const [sessionToEditId, setSessionToEditId] = useState<string | null>(null);
 
   useEffect(() => {
     console.log("Attempting to load chat sessions");
@@ -33,6 +39,8 @@ export default function BrowseChatsModal({
     }
   }, [modalOpen]);
 
+  console.log("hej", sessionToEditId);
+
   const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
     // Check if the click occurred outside the modalContent
     if (event.target === event.currentTarget) {
@@ -45,32 +53,85 @@ export default function BrowseChatsModal({
     closeModal();
   };
 
+  const handleChatClick = (id: string) => {
+    if (sessionToEditId !== id) {
+      setSelectedChatId(id);
+      closeModal();
+    }
+  };
+
+  const handleEditClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    id: string
+  ) => {
+    e.stopPropagation();
+    console.log("click");
+    if (id === sessionToEditId) {
+      console.log("blir tom");
+      setSessionToEditId(null);
+    } else {
+      setSessionToEditId(id);
+    }
+  };
+
+  useEffect(() => {
+    console.log(sessionToEditId);
+  }, [sessionToEditId]);
+
+  if (!modalOpen) {
+    return null;
+  }
+
   return (
-    <div>
-      {modalOpen && (
-        <div className={styles.modal} onClick={handleModalClick}>
-          <div className={styles.modalContent}>
-            <div className={styles.modalHeader}>
-              <span>Your chats</span>
-              <span className={styles.close} onClick={handleCloseClick}>
-                <AiOutlineClose />
-              </span>
-            </div>
-            <div className={styles.chatList}>
-              {loadedChats.map((loadedChat) => (
-                <div
-                  key={loadedChat.id}
-                  onClick={() => setSelectedChatId(loadedChat.id)}
-                >
+    <div className={styles.modal} onClick={handleModalClick}>
+      <div className={styles.modalContent}>
+        <div className={styles.modalHeader}>
+          <span>Your chats</span>
+          <span className={styles.close} onClick={handleCloseClick}>
+            <AiOutlineClose />
+          </span>
+        </div>
+        <div className={styles.chatList}>
+          {loadedChats.map((loadedChat) => {
+            console.log("loadedChat.id:", loadedChat.id);
+            return (
+              <div
+                key={loadedChat.id}
+                onClick={() => handleChatClick(loadedChat.id)}
+              >
+                <div className={styles.leftSection}>
+                  <input
+                    className={styles.nameInput}
+                    type="text"
+                    value={"Hej"}
+                    id="test"
+                    placeholder={loadedChat.name}
+                    disabled={loadedChat.id !== sessionToEditId}
+                  />
                   {loadedChat.timestamp instanceof Date
                     ? loadedChat.timestamp.toLocaleDateString()
                     : new Date(loadedChat.timestamp).toLocaleDateString()}
                 </div>
-              ))}
-            </div>
-          </div>
+                <div>
+                  <button
+                    className={styles.editButton}
+                    onClick={(event) => handleEditClick(event, loadedChat.id)}
+                  >
+                    {loadedChat.id === sessionToEditId ? (
+                      <AiOutlineCheck />
+                    ) : (
+                      <AiOutlineEdit />
+                    )}
+                  </button>
+                  <button className={styles.deleteButton}>
+                    <AiOutlineDelete />
+                  </button>
+                </div>
+              </div>
+            );
+          })}
         </div>
-      )}
+      </div>
     </div>
   );
 }
