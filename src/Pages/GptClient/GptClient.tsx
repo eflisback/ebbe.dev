@@ -8,7 +8,7 @@ import {
 // Components
 import ChatFlow from "./ChatFlow/ChatFlow";
 import SettingsModal from "./SettingsModal/SettingsModal";
-import BrowseChatsModal from "./BrowseChatsModal/SettingsModal";
+import BrowseChatsModal from "./BrowseChatsModal/BrowseChatsModal";
 
 const defaultSettings: MyData = {
   key: "settings",

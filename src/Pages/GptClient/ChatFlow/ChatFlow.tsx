@@ -242,7 +242,9 @@ export default function ChatFlow({
               </React.Fragment>
             ))}
             <div className={styles.timestamp}>
-              {message.timestamp.toLocaleString()}
+              {message.timestamp instanceof Date
+                ? message.timestamp.toLocaleTimeString()
+                : new Date(message.timestamp).toLocaleTimeString()}
             </div>
           </div>
         ))}
