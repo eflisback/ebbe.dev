@@ -113,12 +113,12 @@ class Effect {
 
     this.drawText(context);
 
-    const pixels: ImageData = context.getImageData(
+    /* const pixels: ImageData = context.getImageData(
       0,
       0,
       this.width,
       this.height
-    );
+    ); */
 
     for (let y = 0; y < this.rows; y++) {
       for (let x = 0; x < this.columns; x++) {
