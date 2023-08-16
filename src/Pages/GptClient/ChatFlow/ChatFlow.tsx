@@ -21,7 +21,8 @@ interface IProps {
     api_key: string;
     chatHistoryMemory: number;
   };
-  openModal: () => void;
+  openSettingsModal: () => void;
+  openBrowseChatsModal: () => void;
 }
 
 class MessageBlock {
@@ -51,7 +52,11 @@ type ChatCompletionRequestMessage = {
   content: string;
 };
 
-export default function ChatFlow({ settings, openModal }: IProps) {
+export default function ChatFlow({
+  settings,
+  openSettingsModal,
+  openBrowseChatsModal,
+}: IProps) {
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [currentSessionId, setCurrentSessionId] = useState("");
@@ -259,9 +264,7 @@ export default function ChatFlow({ settings, openModal }: IProps) {
                 <BsChatLeftDots />
               </button>
               <button
-                onClick={() => {
-                  // test
-                }}
+                onClick={openBrowseChatsModal}
                 className={styles.viewChatsButton}
               >
                 <span>Other chats</span>
@@ -275,7 +278,10 @@ export default function ChatFlow({ settings, openModal }: IProps) {
               >
                 <AiOutlineDelete />
               </button>
-              <button onClick={openModal} className={styles.settingsButton}>
+              <button
+                onClick={openSettingsModal}
+                className={styles.settingsButton}
+              >
                 <FiSettings />
               </button>
               <button

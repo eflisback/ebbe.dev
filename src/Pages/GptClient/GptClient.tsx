@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import styles from "./GptClient.module.css";
-
-// Components
-import ChatFlow from "./ChatFlow/ChatFlow";
-import SettingsModal from "./SettingsModal/SettingsModal";
 import {
   saveDataToLocalStorage,
   getDataFromLocalStorage,
 } from "../../utils/localStorage";
+
+// Components
+import ChatFlow from "./ChatFlow/ChatFlow";
+import SettingsModal from "./SettingsModal/SettingsModal";
+import BrowseChatsModal from "./BrowseChatsModal/SettingsModal";
 
 const defaultSettings: MyData = {
   key: "settings",
@@ -20,7 +21,8 @@ const defaultSettings: MyData = {
 
 export default function GptClient() {
   const [settings, setSettings] = useState(defaultSettings.value);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [settingsModalOpen, setSettingsModalOpen] = useState(false);
+  const [browseChatsModalOpen, setBrowseChatsModalOpen] = useState(false);
 
   useEffect(() => {
     const storedSettings = getDataFromLocalStorage(defaultSettings.key);
@@ -37,12 +39,20 @@ export default function GptClient() {
     }
   }, [settings]);
 
-  function openModal() {
-    setModalOpen(true);
+  function openSettingsModal() {
+    setSettingsModalOpen(true);
   }
 
-  function closeModal() {
-    setModalOpen(false);
+  function closeSettingsModal() {
+    setSettingsModalOpen(false);
+  }
+
+  function openBrowseChatsModal() {
+    setBrowseChatsModalOpen(true);
+  }
+
+  function closeBrowseChatsModal() {
+    setBrowseChatsModalOpen(false);
   }
 
   return (
@@ -51,10 +61,18 @@ export default function GptClient() {
         <SettingsModal
           settings={settings}
           setSettings={setSettings}
-          modalOpen={modalOpen}
-          closeModal={closeModal}
+          modalOpen={settingsModalOpen}
+          closeModal={closeSettingsModal}
         />
-        <ChatFlow settings={settings} openModal={openModal} />
+        <BrowseChatsModal
+          modalOpen={browseChatsModalOpen}
+          closeModal={closeBrowseChatsModal}
+        />
+        <ChatFlow
+          settings={settings}
+          openSettingsModal={openSettingsModal}
+          openBrowseChatsModal={openBrowseChatsModal}
+        />
       </div>
     </div>
   );

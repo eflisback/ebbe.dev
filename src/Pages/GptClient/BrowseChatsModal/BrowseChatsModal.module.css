@@ -1,0 +1,99 @@
+@import "../../../index.css";
+
+.modal {
+  display: block;
+  position: absolute;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modalHeader {
+  margin-bottom: var(--s-xs);
+}
+
+.modalHeader span:first-of-type {
+  font-size: var(--s-xs);
+  color: var(--green-text-color);
+}
+
+.modalContent {
+  background-color: var(--secondary-background-color);
+  margin: 15% auto;
+  padding: 20px;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: white;
+  text-decoration: none;
+}
+
+/* Additional styles for the button */
+.modelContainer,
+.apiKeyContainer,
+.chatHistoryContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.modelContainer {
+  margin-bottom: 15px;
+}
+
+.apiKeyContainer {
+  margin-bottom: 15px;
+}
+
+.chatHistoryContainer {
+  margin-bottom: 15px;
+}
+
+input,
+select {
+  outline: none;
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  border: solid var(--secondary-text-color) 1px;
+  padding: 5px;
+  border-radius: 5px;
+  margin-top: 5px;
+  color: var(--green-text-color);
+}
+
+option {
+  color: black;
+}
+
+.saveButton {
+  background-color: #235e25;
+  color: rgb(206, 206, 206);
+  border: none;
+  border-radius: 4px;
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.saveButton:hover {
+  color: white;
+}
