@@ -6,7 +6,11 @@ import {
   AiOutlineDelete,
   AiOutlineCheck,
 } from "react-icons/ai";
-import { getDataFromLocalStorage } from "../../../utils/localStorage";
+import {
+  getDataFromLocalStorage,
+  saveDataToLocalStorage,
+} from "../../../utils/localStorage";
+import { generateUniqueId } from "../../../utils/createUniqueId";
 
 interface IProps {
   modalOpen: boolean;
@@ -24,12 +28,13 @@ export default function BrowseChatsModal({
 
   useEffect(() => {
     console.log("Attempting to load chat sessions");
-    const chatsData: IChats | null = getDataFromLocalStorage(
-      "chats"
-    ) as IChats | null;
-    if (chatsData) {
+    const chats: IChat[] | null = getDataFromLocalStorage("chats") as
+      | IChat[]
+      | null;
+    if (chats) {
+      // Add null and property checks here
       // Sort chats by timestamp in descending order (newest first)
-      const sortedChats = chatsData.chats.sort((a, b) =>
+      const sortedChats = chats.sort((a, b) =>
         b.timestamp instanceof Date && a.timestamp instanceof Date
           ? b.timestamp.getTime() - a.timestamp.getTime()
           : 0
@@ -74,6 +79,29 @@ export default function BrowseChatsModal({
     }
   };
 
+  const handleDeleteClick = (
+    id: string,
+    e: React.MouseEvent<HTMLSpanElement>
+  ) => {
+    e.stopPropagation();
+    const chats: IChat[] = (getDataFromLocalStorage("chats") as IChat[]) || [];
+    if (chats) {
+      // Filter out the chat with the matching id
+      const updatedChats = chats.filter((chat) => chat.id !== id);
+      if (updatedChats.length < 1) {
+        updatedChats.push({
+          name: "hej",
+          id: generateUniqueId(),
+          timestamp: new Date(),
+          messages: [],
+        });
+      }
+      // Update the local storage with the updated chats data
+      saveDataToLocalStorage({ key: "chats", value: updatedChats });
+      setLoadedChats(updatedChats);
+    }
+  };
+
   useEffect(() => {
     console.log(sessionToEditId);
   }, [sessionToEditId]);
@@ -108,9 +136,15 @@ export default function BrowseChatsModal({
                     placeholder={loadedChat.name}
                     disabled={loadedChat.id !== sessionToEditId}
                   />
-                  {loadedChat.timestamp instanceof Date
-                    ? loadedChat.timestamp.toLocaleDateString()
-                    : new Date(loadedChat.timestamp).toLocaleDateString()}
+                  <span>
+                    {loadedChat.timestamp instanceof Date
+                      ? loadedChat.timestamp.toLocaleDateString()
+                      : new Date(loadedChat.timestamp).toLocaleDateString()}
+                    ,{" "}
+                    {loadedChat.timestamp instanceof Date
+                      ? loadedChat.timestamp.toLocaleTimeString()
+                      : new Date(loadedChat.timestamp).toLocaleTimeString()}
+                  </span>
                 </div>
                 <div>
                   <button
@@ -123,9 +157,18 @@ export default function BrowseChatsModal({
                       <AiOutlineEdit />
                     )}
                   </button>
-                  <button className={styles.deleteButton}>
-                    <AiOutlineDelete />
-                  </button>
+                  {loadedChats.length > 1 ? (
+                    <button
+                      className={styles.deleteButton}
+                      onClick={(event) =>
+                        handleDeleteClick(loadedChat.id, event)
+                      }
+                    >
+                      <AiOutlineDelete />
+                    </button>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
             );

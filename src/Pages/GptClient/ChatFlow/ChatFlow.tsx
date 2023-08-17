@@ -73,7 +73,7 @@ export default function ChatFlow({
     const chatsData: IChats | null = getDataFromLocalStorage(
       "chats"
     ) as IChats | null;
-    if (chatsData) {
+    if (chatsData && chatsData.chats !== undefined) {
       let latestChat: IChat | null = null;
       chatsData.chats.forEach((chat: IChat) => {
         if (!latestChat || chat.timestamp > latestChat.timestamp) {
@@ -108,34 +108,33 @@ export default function ChatFlow({
 
   // useEffect hook that loads new chat when currentSessionId changes
   useEffect(() => {
-    const chatsData: IChats = (getDataFromLocalStorage("chats") as IChats) || {
-      chats: [],
-    };
-    const existingSession = chatsData.chats.find(
-      (chat) => chat.id === currentSessionId
-    );
-    if (existingSession) {
-      // if the chat exists
-      setMessages(existingSession.messages);
-    } else {
-      // if a new chat is created
-      setMessages([]);
+    const chats: IChat[] = (getDataFromLocalStorage("chats") as IChat[]) || [];
+    if (chats) {
+      const existingSession = chats.find(
+        (chat) => chat.id === currentSessionId
+      );
+      if (existingSession) {
+        // if the chat exists
+        setMessages(existingSession.messages);
+      } else {
+        // if a new chat is created
+        setMessages([]);
+      }
     }
   }, [currentSessionId]);
 
   // useEffect hook that handles saving data to active chat
   useEffect(() => {
-    const chatsData: IChats = (getDataFromLocalStorage("chats") as IChats) || {
-      chats: [],
-    };
-    const existingChatIndex = chatsData.chats.findIndex(
+    const chats: IChat[] = (getDataFromLocalStorage("chats") as IChat[]) || [];
+    console.log(chats);
+    const existingChatIndex = chats.findIndex(
       (chat) => chat.id === currentSessionId
     );
 
     if (existingChatIndex !== -1) {
-      chatsData.chats[existingChatIndex].messages = messages;
-      chatsData.chats[existingChatIndex].timestamp = new Date();
-      console.log("Updated existing chat:", chatsData.chats[existingChatIndex]);
+      chats[existingChatIndex].messages = messages;
+      chats[existingChatIndex].timestamp = new Date();
+      console.log("Updated existing chat:", chats[existingChatIndex]);
     } else {
       const newChat: IChat = {
         id: currentSessionId,
@@ -143,12 +142,12 @@ export default function ChatFlow({
         timestamp: new Date(),
         messages: messages,
       };
-      chatsData.chats.push(newChat);
+      chats.push(newChat);
       console.log("Created new local save:", newChat);
     }
 
-    saveDataToLocalStorage({ key: "chats", value: chatsData });
-    console.log("Saved chat data to local storage:", chatsData);
+    saveDataToLocalStorage({ key: "chats", value: chats });
+    console.log("Saved chat data to local storage:", chats);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages]);
 
