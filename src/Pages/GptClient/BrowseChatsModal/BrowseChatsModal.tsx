@@ -27,7 +27,6 @@ export default function BrowseChatsModal({
   const [sessionToEditId, setSessionToEditId] = useState<string | null>(null);
 
   useEffect(() => {
-    console.log("Attempting to load chat sessions");
     const chats: IChat[] | null = getDataFromLocalStorage("chats") as
       | IChat[]
       | null;
@@ -43,8 +42,6 @@ export default function BrowseChatsModal({
       setLoadedChats(sortedChats);
     }
   }, [modalOpen]);
-
-  console.log("hej", sessionToEditId);
 
   const handleModalClick = (event: React.MouseEvent<HTMLDivElement>) => {
     // Check if the click occurred outside the modalContent
@@ -70,9 +67,7 @@ export default function BrowseChatsModal({
     id: string
   ) => {
     e.stopPropagation();
-    console.log("click");
     if (id === sessionToEditId) {
-      console.log("blir tom");
       setSessionToEditId(null);
     } else {
       setSessionToEditId(id);
@@ -102,10 +97,6 @@ export default function BrowseChatsModal({
     }
   };
 
-  useEffect(() => {
-    console.log(sessionToEditId);
-  }, [sessionToEditId]);
-
   if (!modalOpen) {
     return null;
   }
@@ -121,7 +112,6 @@ export default function BrowseChatsModal({
         </div>
         <div className={styles.chatList}>
           {loadedChats.map((loadedChat) => {
-            console.log("loadedChat.id:", loadedChat.id);
             return (
               <div
                 key={loadedChat.id}
