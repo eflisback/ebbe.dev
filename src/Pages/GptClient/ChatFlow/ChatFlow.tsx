@@ -81,26 +81,21 @@ export default function ChatFlow({
         }
       });
       if (latestChat !== undefined) {
-        console.log("Setting current session ID:", latestChat!.id);
         setCurrentSessionId(latestChat!.id);
-        console.log("Setting messages:", latestChat!.messages);
         setMessages(latestChat!.messages);
       }
     } else {
       const newChatId = generateUniqueId();
-      console.log("Generating new chat ID:", newChatId);
       setCurrentSessionId(newChatId);
     }
   }, []);
 
   useEffect(() => {
-    console.log(`Updating current session from to ${selectedChatId}.`);
     setCurrentSessionId(selectedChatId);
   }, [selectedChatId]);
 
   // useEffect hook which scrolls automatically as messages array changes
   useEffect(() => {
-    console.log("Scrolling...");
     if (messageFlowRef.current) {
       messageFlowRef.current.scrollTop = messageFlowRef.current.scrollHeight;
     }
@@ -126,7 +121,6 @@ export default function ChatFlow({
   // useEffect hook that handles saving data to active chat
   useEffect(() => {
     const chats: IChat[] = (getDataFromLocalStorage("chats") as IChat[]) || [];
-    console.log(chats);
     const existingChatIndex = chats.findIndex(
       (chat) => chat.id === currentSessionId
     );
@@ -134,7 +128,6 @@ export default function ChatFlow({
     if (existingChatIndex !== -1) {
       chats[existingChatIndex].messages = messages;
       chats[existingChatIndex].timestamp = new Date();
-      console.log("Updated existing chat:", chats[existingChatIndex]);
     } else {
       const newChat: IChat = {
         id: currentSessionId,
@@ -143,11 +136,9 @@ export default function ChatFlow({
         messages: messages,
       };
       chats.push(newChat);
-      console.log("Created new local save:", newChat);
     }
 
     saveDataToLocalStorage({ key: "chats", value: chats });
-    console.log("Saved chat data to local storage:", chats);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages]);
 
@@ -235,9 +226,7 @@ export default function ChatFlow({
   }
 
   function createNewChat() {
-    console.log("New chat button pressed");
     const newChatId = generateUniqueId();
-    console.log("Generating new chat ID:", newChatId);
     setCurrentSessionId(newChatId);
   }
 
