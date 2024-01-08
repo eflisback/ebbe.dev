@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./ChatFlow.module.css";
-import { OpenAIApi } from "openai";
-import { Configuration } from "openai/dist/configuration";
+import { OpenAI } from "openai";
 import { FiSettings, FiMenu } from "react-icons/fi";
 import { AiOutlineDelete, AiOutlineSend } from "react-icons/ai";
 import { BsChatLeftDots } from "react-icons/bs";
@@ -64,18 +63,18 @@ export default function ChatFlow({
   const [currentSessionId, setCurrentSessionId] = useState("");
   const messageFlowRef = useRef<HTMLDivElement>(null);
 
-  const configuration = new Configuration({
+  const openai = new OpenAI({
     apiKey: settings.api_key,
+    dangerouslyAllowBrowser: true,
   });
-  const openai = new OpenAIApi(configuration);
 
   useEffect(() => {
-    const chatsData: IChats | null = getDataFromLocalStorage(
-      "chats"
-    ) as IChats | null;
-    if (chatsData && chatsData.chats !== undefined) {
-      let latestChat: IChat | null = null;
-      chatsData.chats.forEach((chat: IChat) => {
+    const chatsData: Chat[] | null = getDataFromLocalStorage("chats") as
+      | Chat[]
+      | null;
+    if (chatsData) {
+      let latestChat: Chat | null = null;
+      chatsData.forEach((chat: Chat) => {
         if (!latestChat || chat.timestamp > latestChat.timestamp) {
           latestChat = chat;
         }
@@ -103,7 +102,7 @@ export default function ChatFlow({
 
   // useEffect hook that loads new chat when currentSessionId changes
   useEffect(() => {
-    const chats: IChat[] = (getDataFromLocalStorage("chats") as IChat[]) || [];
+    const chats: Chat[] = (getDataFromLocalStorage("chats") as Chat[]) || [];
     if (chats) {
       const existingSession = chats.find(
         (chat) => chat.id === currentSessionId
@@ -120,7 +119,7 @@ export default function ChatFlow({
 
   // useEffect hook that handles saving data to active chat
   useEffect(() => {
-    const chats: IChat[] = (getDataFromLocalStorage("chats") as IChat[]) || [];
+    const chats: Chat[] = (getDataFromLocalStorage("chats") as Chat[]) || [];
     const existingChatIndex = chats.findIndex(
       (chat) => chat.id === currentSessionId
     );
@@ -129,7 +128,7 @@ export default function ChatFlow({
       chats[existingChatIndex].messages = messages;
       chats[existingChatIndex].timestamp = new Date();
     } else {
-      const newChat: IChat = {
+      const newChat: Chat = {
         id: currentSessionId,
         name: "Chat Room",
         timestamp: new Date(),
@@ -159,7 +158,7 @@ export default function ChatFlow({
           content: message.blocks.map((block) => block.content).join("\n"),
         }));
 
-      const response = await openai.createChatCompletion(
+      const response = await openai.chat.completions.create(
         {
           model: settings.model,
           temperature: 0.888,
@@ -175,7 +174,7 @@ export default function ChatFlow({
         { timeout: 60000 }
       );
 
-      const response_text = response.data.choices[0].message!.content!.trim();
+      const response_text = response.choices[0].message!.content!.trim();
 
       const codeRegex = /```([\s\S]*?)```/g;
       const blocks: MessageBlock[] = [];

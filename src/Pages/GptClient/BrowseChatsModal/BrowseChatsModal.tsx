@@ -23,12 +23,12 @@ export default function BrowseChatsModal({
   closeModal,
   setSelectedChatId,
 }: IProps) {
-  const [loadedChats, setLoadedChats] = useState<IChat[]>([]);
+  const [loadedChats, setLoadedChats] = useState<Chat[]>([]);
   const [sessionToEditId, setSessionToEditId] = useState<string | null>(null);
 
   useEffect(() => {
-    const chats: IChat[] | null = getDataFromLocalStorage("chats") as
-      | IChat[]
+    const chats: Chat[] | null = getDataFromLocalStorage("chats") as
+      | Chat[]
       | null;
     if (chats) {
       // Add null and property checks here
@@ -79,7 +79,7 @@ export default function BrowseChatsModal({
     e: React.MouseEvent<HTMLSpanElement>
   ) => {
     e.stopPropagation();
-    const chats: IChat[] = (getDataFromLocalStorage("chats") as IChat[]) || [];
+    const chats: Chat[] = (getDataFromLocalStorage("chats") as Chat[]) || [];
     if (chats) {
       // Filter out the chat with the matching id
       const updatedChats = chats.filter((chat) => chat.id !== id);

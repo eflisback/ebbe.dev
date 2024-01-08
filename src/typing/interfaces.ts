@@ -1,4 +1,4 @@
-interface IPage {
+interface Page {
   displayText: string;
   id: string;
   component?: JSX.Element;
@@ -9,7 +9,7 @@ interface MyData {
   value: any;
 }
 
-interface IChat {
+interface Chat {
   id: string;
   name: string;
   timestamp: Date;
@@ -21,8 +21,4 @@ interface IChat {
     }[];
     timestamp: Date;
   }[];
-}
-
-interface IChats {
-  chats: IChat[];
 }

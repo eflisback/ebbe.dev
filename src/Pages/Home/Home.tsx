@@ -12,16 +12,15 @@ import Welcome from "../Welcome/Welcome";
 import TestPage1 from "../TestPage1/TestPage1";
 import GptClient from "../GptClient/GptClient";
 import GameStatsTracker from "../GameStatsTracker/GameStatsTracker";
-
 import FourZeroFour from "./FourZeroFour/FourZeroFour";
 
-const fourZeroFour: IPage = {
+const fourZeroFour: Page = {
   displayText: "404 Not Found",
   id: "404",
   component: <FourZeroFour />,
 };
 
-const pages: IPage[] = [
+const pages: Page[] = [
   {
     displayText: "Welcome",
     id: "welcome",
@@ -44,7 +43,7 @@ const pages: IPage[] = [
   },
 ];
 
-const aboutPages: IPage[] = [
+const aboutPages: Page[] = [
   {
     displayText: "General",
     id: "general",

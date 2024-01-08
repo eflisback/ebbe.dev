@@ -4,8 +4,8 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
 interface IProps {
-  pages: IPage[];
-  aboutPages: IPage[];
+  pages: Page[];
+  aboutPages: Page[];
   activePageId: string;
 }
 
