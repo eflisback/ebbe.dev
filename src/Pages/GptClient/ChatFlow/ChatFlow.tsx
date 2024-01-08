@@ -141,12 +141,39 @@ export default function ChatFlow({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages]);
 
+  function parseMessageForCodeBlocks(text: string): MessageBlock[] {
+    const codeRegex = /```([\s\S]*?)```/g;
+    const blocks: MessageBlock[] = [];
+    let match;
+    let currentIndex = 0;
+
+    while ((match = codeRegex.exec(text)) !== null) {
+      const codeContent = match[1];
+      const nonCodeContent = text.substring(currentIndex, match.index);
+
+      if (nonCodeContent) {
+        blocks.push(new MessageBlock(nonCodeContent, false));
+      }
+
+      blocks.push(new MessageBlock(codeContent, true));
+      currentIndex = codeRegex.lastIndex;
+    }
+
+    if (currentIndex < text.length) {
+      const remainingContent = text.substring(currentIndex);
+      blocks.push(new MessageBlock(remainingContent, false));
+    }
+
+    return blocks;
+  }
+
   async function handleMessageSend() {
     if (!inputValue.trim()) return;
 
+    const userMessageBlocks = parseMessageForCodeBlocks(inputValue);
     setMessages((prevMessages) => [
       ...prevMessages,
-      new Message("user", [new MessageBlock(inputValue, false)]),
+      new Message("user", userMessageBlocks),
     ]);
     setInputValue("");
 
@@ -176,34 +203,11 @@ export default function ChatFlow({
 
       const response_text = response.choices[0].message!.content!.trim();
 
-      const codeRegex = /```([\s\S]*?)```/g;
-      const blocks: MessageBlock[] = [];
-      let match;
-
-      let currentIndex = 0;
-      while ((match = codeRegex.exec(response_text)) !== null) {
-        const codeContent = match[1];
-        const nonCodeContent = response_text.substring(
-          currentIndex,
-          match.index
-        );
-
-        if (nonCodeContent) {
-          blocks.push(new MessageBlock(nonCodeContent, false));
-        }
-
-        blocks.push(new MessageBlock(codeContent, true));
-        currentIndex = codeRegex.lastIndex;
-      }
-
-      if (currentIndex < response_text.length) {
-        const remainingContent = response_text.substring(currentIndex);
-        blocks.push(new MessageBlock(remainingContent, false));
-      }
+      const responseMessageBlocks = parseMessageForCodeBlocks(response_text);
 
       setMessages((prevMessages) => [
         ...prevMessages,
-        new Message(`model (${settings.model})`, blocks),
+        new Message(`model (${settings.model})`, responseMessageBlocks),
       ]);
     } catch (error) {
       console.error("Error:", error);
