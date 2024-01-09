@@ -56,13 +56,16 @@ export default function NavBar({ pages, aboutPages, activePageId }: IProps) {
       <section>
         <div className={styles.subHeader}>Socials</div>
         <div className={styles.socials}>
-          <a href="">
+          <a
+            href="https://se.linkedin.com/in/ebbe-flisb%C3%A4ck-a89a3a296"
+            target="_blank"
+          >
             <BsLinkedin />
           </a>
-          <a href="">
+          <a href="https://github.com/eflisback" target="_blank">
             <BsGithub />
           </a>
-          <a href="">
+          <a href="https://www.instagram.com/eflisback/" target="_blank">
             <BsInstagram />
           </a>
         </div>
