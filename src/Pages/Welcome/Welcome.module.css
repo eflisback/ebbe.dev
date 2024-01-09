@@ -9,21 +9,36 @@
   box-sizing: border-box;
 }
 
-.title {
+.title,
+.subTitle {
   color: var(--green-text-color);
+}
+
+.title {
   font-size: var(--s-m);
 }
 
+.subTitle {
+  font-size: var(--s-s);
+}
+
 p {
-  font-size: var(--s-xs);
+  line-height: var(--s-s);
   color: gray;
+  font-size: var(--s-xs);
 }
 
 .linkButtonContainer {
   width: 100%;
-  margin-top: var(--s-m);
+  margin: var(--s-m) 0;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   align-items: center;
+}
+
+.list {
+  font-size: var(--s-xs);
+  display: flex;
+  flex-direction: column;
 }

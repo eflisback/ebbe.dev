@@ -1,0 +1,11 @@
+.listItem {
+  margin-top: var(--s-s);
+  display: flex;
+  flex-direction: row;
+}
+
+.listItem svg {
+  margin: 0 var(--s-s);
+  position: relative;
+  top: 3px;
+}
