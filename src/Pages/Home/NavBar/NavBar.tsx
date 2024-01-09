@@ -1,7 +1,11 @@
 import styles from "./NavBar.module.css";
+
+// Components
+import { Link } from "react-router-dom";
+
+// Icons
 import { BsGithub, BsLinkedin, BsInstagram } from "react-icons/bs";
 import { AiOutlineArrowRight } from "react-icons/ai";
-import { Link } from "react-router-dom";
 
 interface IProps {
   pages: Page[];

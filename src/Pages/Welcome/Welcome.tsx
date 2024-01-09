@@ -1,10 +1,12 @@
 import styles from "./Welcome.module.css";
-import { RiGitRepositoryLine } from "react-icons/ri";
 
 // Components
-import LinkButton from "../Home/LinkButton/LinkButton";
+import LinkButton from "../../Components/Button/LinkButton/LinkButton";
 import TextLink from "../../Components/Text/TextLink/TextLink";
 import ListItem from "../../Components/Text/ListItem/ListItem";
+
+// Icons
+import { RiGitRepositoryLine } from "react-icons/ri";
 
 export default function Welcome() {
   return (
