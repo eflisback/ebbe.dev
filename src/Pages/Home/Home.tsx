@@ -13,6 +13,7 @@ import TestPage1 from "../TestPage1/TestPage1";
 import GptClient from "../GptClient/GptClient";
 import GameStatsTracker from "../GameStatsTracker/GameStatsTracker";
 import FourZeroFour from "./FourZeroFour/FourZeroFour";
+import Projects from "../Projects/Projects";
 
 const fourZeroFour: Page = {
   displayText: "404 Not Found",
@@ -51,6 +52,7 @@ const aboutPages: Page[] = [
   {
     displayText: "Projects",
     id: "projects",
+    component: <Projects />,
   },
   {
     displayText: "Experience",

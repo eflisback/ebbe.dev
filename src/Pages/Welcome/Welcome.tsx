@@ -41,7 +41,9 @@ export default function Welcome() {
             link="/projects"
             targetBlank={false}
           />{" "}
-          tab.
+          tab. <span style={{ color: "rgb(255, 80, 80)" }}>Note!</span> If
+          you're seeing this the website is not yet done, and you might
+          encounter bugs.
         </p>
         <div className={styles.linkButtonContainer}>
           <LinkButton
