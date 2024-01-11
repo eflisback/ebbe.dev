@@ -25,6 +25,12 @@ body {
   padding: 0;
 }
 
+p {
+  line-height: var(--s-s);
+  color: gray;
+  font-size: var(--s-xs);
+}
+
 .body {
   width: 100%;
   height: 100vh;
@@ -39,6 +45,19 @@ body {
   width: 100%;
   min-height: 0px;
   flex: 1;
+}
+
+.title,
+.subTitle {
+  color: var(--green-text-color);
+}
+
+.title {
+  font-size: var(--s-m);
+}
+
+.subTitle {
+  font-size: var(--s-s);
 }
 
 @media screen and (max-width: 1200px) {

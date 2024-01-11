@@ -1,1 +1,14 @@
 @import url("../../../index.css");
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: calc(2 * var(--s-xxl));
+}
+
+.image {
+  background-color: var(--green-text-color);
+  height: calc(2 * var(--s-xxl));
+  width: 100%;
+}

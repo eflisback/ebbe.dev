@@ -36,4 +36,5 @@ interface Project {
     icon?: JSX.Element;
     name: string;
   }[];
+  repoLink: string;
 }

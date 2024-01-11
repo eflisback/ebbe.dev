@@ -22,12 +22,6 @@
   font-size: var(--s-s);
 }
 
-p {
-  line-height: var(--s-s);
-  color: gray;
-  font-size: var(--s-xs);
-}
-
 .linkButtonContainer {
   width: 100%;
   margin: var(--s-m) 0;
