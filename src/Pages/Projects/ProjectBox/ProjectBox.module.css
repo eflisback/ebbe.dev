@@ -5,35 +5,49 @@
   flex-direction: column;
   width: 100%;
   box-sizing: border-box;
-  border-left: 3px solid var(--primary-background-color);
   background-color: var(--secondary-background-color);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   transition: 0.2s;
   padding: var(--s-xs);
   font-size: var(--s-xs);
-}
-
-.main:hover {
-  border-color: var(--green-text-color);
-  background-color: rgb(33, 33, 33);
+  color: gray;
+  margin-bottom: var(--s-m);
 }
 
 .name {
+  color: white;
   font-size: var(--s-s);
 }
 
 .tags {
   display: flex;
   flex-direction: row;
-  margin: var(--s-xxs) 0;
+  margin: var(--s-xs) 0;
+  font-size: calc((var(--s-xs) + var(--s-xxs)) / 2);
 }
 
 .tag {
   margin-right: var(--s-xxs);
+  background-color: var(--primary-background-color);
+  padding: var(--s-xxs);
+  color: var(--green-text-color);
+  border-radius: 5px;
+}
+
+.tag > svg {
+  margin-right: var(--s-xxs);
+  position: relative;
+  top: 2px;
 }
 
 .description {
   text-align: justify;
-  color: gray;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--s-xs);
+  color: white;
 }

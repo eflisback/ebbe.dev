@@ -31,10 +31,12 @@ interface Project {
   id: string;
   name: string;
   description: string;
-  imagePath: string;
   tags: {
     icon?: JSX.Element;
     name: string;
   }[];
-  repoLink: string;
+  links: {
+    type: string;
+    link: string;
+  }[];
 }

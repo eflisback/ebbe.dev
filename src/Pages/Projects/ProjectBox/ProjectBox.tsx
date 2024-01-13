@@ -1,3 +1,4 @@
+import TextLink from "../../../Components/Text/TextLink/TextLink";
 import styles from "./ProjectBox.module.css";
 
 interface IProps {
@@ -17,6 +18,23 @@ export default function ProjectBox({ project }: IProps) {
         ))}
       </div>
       <span className={styles.description}>{project.description}</span>
+      {project.links.length > 0 ? (
+        <div className={styles.links}>
+          {project.links.map((link) => (
+            <div className={styles.link}>
+              View the{" "}
+              <TextLink
+                displayText={link.type}
+                link={link.link}
+                targetBlank={true}
+              />
+              .
+            </div>
+          ))}
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

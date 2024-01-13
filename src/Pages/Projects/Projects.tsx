@@ -3,6 +3,8 @@ import {
   RiMiniProgramLine,
   RiReactjsLine,
 } from "react-icons/ri";
+import { SiTensorflow, SiPython } from "react-icons/si";
+import { SlGraph } from "react-icons/sl";
 import styles from "./Projects.module.css";
 
 // Components
@@ -13,10 +15,9 @@ export default function Projects() {
   const projects: Project[] = [
     {
       id: "birdview",
-      name: "Bird View UF",
+      name: "Bird View youth-company website",
       description:
-        "Me and two classmates in high school made this website for our company, Bird View, in which we operated out drone-business. The website is made in React and written in TypeScript.",
-      imagePath: "/images/project-thumbnails/birdview.png",
+        "Me and two classmates in high school made this website for our company, Bird View, in which we operated out drone-business. The website is made in React and written in TypeScript. The entire project involved making a mail server, a back end server for the website, as well as a front end. However, I was for the most part only involved with the front end.",
       tags: [
         {
           icon: <RiMiniProgramLine />,
@@ -31,7 +32,38 @@ export default function Projects() {
           name: "TypeScript",
         },
       ],
-      repoLink: "https://birdview.se/",
+      links: [
+        {
+          type: "live website",
+          link: "https://birdview.se/",
+        },
+      ],
+    },
+    {
+      id: "geoguessrai",
+      name: "GeoGuessr AI",
+      description:
+        "Developed a convolutional neural network utilizing the TensorFlow Python library to build a GeoGuessr bot. Using more than 80,000 images acquired through the Google Maps Street View API, and by fine tuning the EfficientNetV2L base model, the model was effectively trained on my GPU, and achieved impressive results by achieving an accuracy rate exceeding 55%. Meaning that given a single street view image from a country included in the dataset, the model could identify the country over half the times. Sadly, the model I created now beats me at GeoGuessr.",
+      tags: [
+        {
+          icon: <SiTensorflow />,
+          name: "TensorFlow",
+        },
+        {
+          icon: <SiPython />,
+          name: "Python",
+        },
+        {
+          icon: <SlGraph />,
+          name: "Fine tuning",
+        },
+      ],
+      links: [
+        {
+          type: "GitHub repository",
+          link: "https://github.com/eflisback/geoguessrbot-v2",
+        },
+      ],
     },
   ];
 
