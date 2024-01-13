@@ -8,3 +8,9 @@
   flex-direction: column;
   box-sizing: border-box;
 }
+
+.projectBoxContainer {
+  margin-top: var(--s-m);
+  display: flex;
+  flex-direction: column;
+}

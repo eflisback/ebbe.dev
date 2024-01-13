@@ -64,7 +64,9 @@ section:last-of-type {
 }
 
 .links a:hover,
-.socials a:hover {
+.socials a:hover,
+.links a:focus,
+.socials a:focus {
   color: lightgray;
 }
 

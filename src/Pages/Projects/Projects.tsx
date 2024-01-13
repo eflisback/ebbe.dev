@@ -2,7 +2,6 @@ import {
   RiCodeBoxLine,
   RiMiniProgramLine,
   RiReactjsLine,
-  RiServerLine,
 } from "react-icons/ri";
 import styles from "./Projects.module.css";
 
@@ -13,30 +12,26 @@ import TextLink from "../../Components/Text/TextLink/TextLink";
 export default function Projects() {
   const projects: Project[] = [
     {
-      id: "peanut",
-      name: "Sell Peanut Butter!",
+      id: "birdview",
+      name: "Bird View UF",
       description:
-        "This website was developed for a family member in-law who sells home-made peanut butter. Pages for making orders as well as adiminstrator pages that are password-restricted.",
-      imagePath: "",
+        "Me and two classmates in high school made this website for our company, Bird View, in which we operated out drone-business. The website is made in React and written in TypeScript.",
+      imagePath: "/images/project-thumbnails/birdview.png",
       tags: [
         {
-          icon: <RiCodeBoxLine />,
-          name: "Full Stack",
+          icon: <RiMiniProgramLine />,
+          name: "Front End",
         },
         {
           icon: <RiReactjsLine />,
           name: "React",
         },
         {
-          icon: <RiServerLine />,
-          name: "NodeJS",
-        },
-        {
-          icon: <RiMiniProgramLine />,
+          icon: <RiCodeBoxLine />,
           name: "TypeScript",
         },
       ],
-      repoLink: "",
+      repoLink: "https://birdview.se/",
     },
   ];
 
@@ -58,7 +53,7 @@ export default function Projects() {
         </p>
         <div className={styles.projectBoxContainer}>
           {projects.map((project) => (
-            <ProjectBox project={project} />
+            <ProjectBox key={project.id} project={project} />
           ))}
         </div>
       </div>
