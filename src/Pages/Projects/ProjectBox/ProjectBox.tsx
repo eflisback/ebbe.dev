@@ -1,3 +1,4 @@
+import ListItem from "../../../Components/Text/ListItem/ListItem";
 import TextLink from "../../../Components/Text/TextLink/TextLink";
 import styles from "./ProjectBox.module.css";
 
@@ -21,15 +22,19 @@ export default function ProjectBox({ project }: IProps) {
       {project.links.length > 0 ? (
         <div className={styles.links}>
           {project.links.map((link) => (
-            <div className={styles.link}>
-              {project.preText ? project.preText : "View the"}{" "}
-              <TextLink
-                displayText={link.type}
-                link={link.link}
-                targetBlank={true}
-              />
-              .
-            </div>
+            <ListItem
+              key={link.type}
+              content={
+                <>
+                  <span>{link.preText ? link.preText : "View the"}</span>&nbsp;
+                  <TextLink
+                    displayText={link.type}
+                    link={link.link}
+                    targetBlank={true}
+                  />
+                </>
+              }
+            />
           ))}
         </div>
       ) : (

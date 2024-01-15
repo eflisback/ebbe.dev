@@ -11,7 +11,6 @@ import Header from "./Header/Header";
 import Welcome from "../Welcome/Welcome";
 import TestPage1 from "../TestPage1/TestPage1";
 import GptClient from "../GptClient/GptClient";
-import GameStatsTracker from "../GameStatsTracker/GameStatsTracker";
 import FourZeroFour from "./FourZeroFour/FourZeroFour";
 import Projects from "../Projects/Projects";
 
@@ -36,11 +35,6 @@ const pages: Page[] = [
     displayText: "Test-page 1",
     id: "ts1",
     component: <TestPage1 />,
-  },
-  {
-    displayText: "Game stats tracker",
-    id: "game-stats",
-    component: <GameStatsTracker />,
   },
 ];
 

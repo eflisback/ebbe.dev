@@ -35,8 +35,8 @@ interface Project {
     icon?: JSX.Element;
     name: string;
   }[];
-  preText?: string;
   links: {
+    preText?: string;
     type: string;
     link: string;
   }[];

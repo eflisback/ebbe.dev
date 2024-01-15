@@ -5,6 +5,7 @@ import {
 } from "react-icons/ri";
 import { SiTensorflow, SiPython } from "react-icons/si";
 import { SlGraph } from "react-icons/sl";
+import { PiShareNetworkDuotone } from "react-icons/pi";
 import styles from "./Projects.module.css";
 
 // Components
@@ -13,6 +14,41 @@ import TextLink from "../../Components/Text/TextLink/TextLink";
 
 export default function Projects() {
   const projects: Project[] = [
+    {
+      id: "geoguessrai",
+      name: "GeoGuessr AI",
+      description:
+        "Developed a convolutional neural network using the TensorFlow Python library to build a GeoGuessr bot. By downloading more than 80,000 images acquired through the Google Maps Street View API, and by fine tuning the EfficientNetV2L base model, the final model was effectively trained on my GPU, and achieved impressive results by achieving an accuracy rate exceeding 55%. Meaning that given a single street view image from a country included in the dataset, the model could identify the exact country over half the times. Sadly, the model I created now beats me at GeoGuessr.",
+      tags: [
+        {
+          icon: <SiTensorflow />,
+          name: "TensorFlow",
+        },
+        {
+          icon: <SiPython />,
+          name: "Python",
+        },
+        {
+          icon: <PiShareNetworkDuotone />,
+          name: "Deep learning",
+        },
+        {
+          icon: <SlGraph />,
+          name: "Fine tuning",
+        },
+      ],
+      links: [
+        {
+          type: "GitHub repository",
+          link: "https://github.com/eflisback/geoguessrbot-v2",
+        },
+        {
+          preText: "Check out ",
+          type: "GeoGuessr",
+          link: "https://www.geoguessr.com/",
+        },
+      ],
+    },
     {
       id: "birdview",
       name: "Bird View youth-company website",
@@ -32,37 +68,11 @@ export default function Projects() {
           name: "TypeScript",
         },
       ],
-      preText: "Visit the ",
       links: [
         {
+          preText: "Visit the ",
           type: "live website",
           link: "https://birdview.se/",
-        },
-      ],
-    },
-    {
-      id: "geoguessrai",
-      name: "GeoGuessr AI",
-      description:
-        "Developed a convolutional neural network utilizing the TensorFlow Python library to build a GeoGuessr bot. Using more than 80,000 images acquired through the Google Maps Street View API, and by fine tuning the EfficientNetV2L base model, the model was effectively trained on my GPU, and achieved impressive results by achieving an accuracy rate exceeding 55%. Meaning that given a single street view image from a country included in the dataset, the model could identify the country over half the times. Sadly, the model I created now beats me at GeoGuessr.",
-      tags: [
-        {
-          icon: <SiTensorflow />,
-          name: "TensorFlow",
-        },
-        {
-          icon: <SiPython />,
-          name: "Python",
-        },
-        {
-          icon: <SlGraph />,
-          name: "Fine tuning",
-        },
-      ],
-      links: [
-        {
-          type: "GitHub repository",
-          link: "https://github.com/eflisback/geoguessrbot-v2",
         },
       ],
     },
