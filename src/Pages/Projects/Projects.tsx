@@ -32,6 +32,7 @@ export default function Projects() {
           name: "TypeScript",
         },
       ],
+      preText: "Visit the ",
       links: [
         {
           type: "live website",

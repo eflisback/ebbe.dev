@@ -22,7 +22,7 @@ export default function ProjectBox({ project }: IProps) {
         <div className={styles.links}>
           {project.links.map((link) => (
             <div className={styles.link}>
-              View the{" "}
+              {project.preText ? project.preText : "View the"}{" "}
               <TextLink
                 displayText={link.type}
                 link={link.link}
