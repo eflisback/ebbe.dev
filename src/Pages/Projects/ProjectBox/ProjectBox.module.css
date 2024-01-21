@@ -10,6 +10,7 @@
   border-radius: 5px;
   transition: 0.2s;
   padding: var(--s-xs);
+  padding-bottom: var(--s-m);
   font-size: var(--s-xs);
   color: gray;
   margin-bottom: var(--s-m);
