@@ -12,12 +12,19 @@ import Welcome from "../Welcome/Welcome";
 import TestPage1 from "../TestPage1/TestPage1";
 import GptClient from "../GptClient/GptClient";
 import FourZeroFour from "./FourZeroFour/FourZeroFour";
+import AnotherFourZeroFour from "./AnotherFourZeroFour/AnotherFourZeroFour";
 import Projects from "../Projects/Projects";
 
 const fourZeroFour: Page = {
   displayText: "404 Not Found",
   id: "404",
   component: <FourZeroFour />,
+};
+
+const anotherFourZeroFour: Page = {
+  displayText: "404 Not Found",
+  id: "lmao",
+  component: <AnotherFourZeroFour />,
 };
 
 const pages: Page[] = [
@@ -98,6 +105,11 @@ export default function Home() {
               element={page.component}
             />
           ))}
+          <Route
+            path={`/${anotherFourZeroFour.id}`}
+            element={<AnotherFourZeroFour />}
+          />
+          <Route path="*" element={<FourZeroFour />} />
         </Routes>
       </div>
     </div>

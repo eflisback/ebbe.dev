@@ -1,0 +1,10 @@
+@import "../../../index.css";
+
+.main {
+  width: 100%;
+  height: 100%;
+  padding: var(--s-m) var(--s-xl);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
