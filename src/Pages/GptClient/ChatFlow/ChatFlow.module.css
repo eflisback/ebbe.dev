@@ -3,6 +3,7 @@
 .back {
   flex-grow: 1;
   height: 100%;
+  max-width: 100%;
   font-family: var(--font-family-play);
   color: var(--primary-text-color);
   display: flex;
@@ -10,6 +11,7 @@
 }
 
 .messageFlow {
+  width: 100%;
   height: 1px;
   flex-grow: 1;
   overflow-y: auto;
@@ -17,6 +19,7 @@
 }
 
 .message {
+  width: 100%;
   display: flex;
   flex-direction: column;
   margin-bottom: 12px;

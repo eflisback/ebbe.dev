@@ -20,7 +20,7 @@ export default function CodeBlock({ code }: IProps) {
           Copy
         </button>
       </div>
-      <pre>
+      <pre style={{ width: "100%", overflowX: "auto" }}>
         <code>{remainingCode}</code>
       </pre>
     </div>

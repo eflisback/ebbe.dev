@@ -30,7 +30,9 @@ p {
   color: gray;
   font-size: var(--s-xs);
 }
-
+* {
+  box-sizing: border-box;
+}
 .body {
   width: 100%;
   height: 100vh;
