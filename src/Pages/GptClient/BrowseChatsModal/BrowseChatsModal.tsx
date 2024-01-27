@@ -105,7 +105,12 @@ export default function BrowseChatsModal({
     <div className={styles.modal} onClick={handleModalClick}>
       <div className={styles.modalContent}>
         <div className={styles.modalHeader}>
-          <span>Your chats</span>
+          <span>
+            Your chats{" "}
+            <span style={{ color: "rgb(255, 80, 80)" }}>
+              (Work in progress!)
+            </span>
+          </span>
           <span className={styles.close} onClick={handleCloseClick}>
             <AiOutlineClose />
           </span>
