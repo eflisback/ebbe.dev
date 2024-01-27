@@ -73,6 +73,7 @@ export default function GptClient() {
         <ChatFlow
           selectedChatId={selectedChatId}
           settings={settings}
+          setSettingsTest={setSettings}
           openSettingsModal={openSettingsModal}
           openBrowseChatsModal={openBrowseChatsModal}
         />

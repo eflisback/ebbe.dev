@@ -20,6 +20,13 @@ interface IProps {
     api_key: string;
     chatHistoryMemory: number;
   };
+  setSettingsTest: React.Dispatch<
+    React.SetStateAction<{
+      model: string;
+      api_key: string;
+      chatHistoryMemory: number;
+    }>
+  >;
   openSettingsModal: () => void;
   openBrowseChatsModal: () => void;
   selectedChatId: string;
@@ -54,6 +61,7 @@ type ChatCompletionRequestMessage = {
 
 export default function ChatFlow({
   settings,
+  setSettingsTest,
   openSettingsModal,
   openBrowseChatsModal,
   selectedChatId,
@@ -140,6 +148,18 @@ export default function ChatFlow({
     saveDataToLocalStorage({ key: "chats", value: chats });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages]);
+
+  const [apiKey, setApiKey] = useState("");
+  const handleApiKeyChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setApiKey(e.target.value);
+  };
+  function setNewApiKey() {
+    setSettingsTest({
+      model: settings.model,
+      api_key: apiKey,
+      chatHistoryMemory: settings.chatHistoryMemory,
+    });
+  }
 
   function parseMessageForCodeBlocks(text: string): MessageBlock[] {
     const codeRegex = /```([\s\S]*?)```/g;
@@ -240,6 +260,13 @@ export default function ChatFlow({
     }
   }
 
+  function handleEnterAPIKey(event: React.KeyboardEvent<HTMLTextAreaElement>) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      setNewApiKey();
+    }
+  }
+
   return (
     <div className={styles.back}>
       <div className={styles.messageFlow} ref={messageFlowRef}>
@@ -270,14 +297,26 @@ export default function ChatFlow({
       </div>
       <div className={styles.footer}>
         <div className={styles.container}>
-          <textarea
-            autoFocus
-            className={styles.messageInput}
-            placeholder="Type your message..."
-            value={inputValue}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyPress}
-          />
+          {settings.api_key != "" ? (
+            <textarea
+              autoFocus
+              className={styles.messageInput}
+              placeholder="Type your message..."
+              value={inputValue}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyPress}
+            />
+          ) : (
+            <textarea
+              autoFocus
+              className={styles.messageInput}
+              placeholder="Enter your OpenAI API key..."
+              value={apiKey}
+              onChange={handleApiKeyChange}
+              onKeyDown={handleEnterAPIKey}
+            />
+          )}
+
           <div className={styles.buttons}>
             <div>
               <button onClick={createNewChat} className={styles.newChatButton}>
@@ -309,11 +348,15 @@ export default function ChatFlow({
                 type="button"
                 className={styles.sendButton}
                 onClick={() => {
-                  handleMessageSend()
-                    .then()
-                    .catch((error) => {
-                      console.error("Error:", error);
-                    });
+                  if (settings.api_key != "") {
+                    handleMessageSend()
+                      .then()
+                      .catch((error) => {
+                        console.error("Error:", error);
+                      });
+                  } else {
+                    setNewApiKey();
+                  }
                 }}
               >
                 <AiOutlineSend />
