@@ -14,13 +14,13 @@ function App() {
     >
       {/* <ambientLight intensity={1} color={"white"}/> */}
       <color attach="background" args={[environmentColor]} />
-      <hemisphereLight intensity={0.3} groundColor={environmentColor} />
+      <hemisphereLight intensity={0.1} groundColor={environmentColor} />
       <spotLight
         decay={0}
         position={[10, 20, 10]}
         angle={0.15}
         penumbra={1}
-        intensity={2}
+        intensity={1.5}
         castShadow
         shadow-mapSize={1024}
       />
@@ -51,7 +51,7 @@ function App() {
       </group>
       <EffectComposer enableNormalPass={false}>
         <Bloom luminanceThreshold={0} mipmapBlur luminanceSmoothing={0.0} intensity={5} />
-        <DepthOfField target={[0, 0, 5]} focalLength={3} bokehScale={2} height={700} />
+        <DepthOfField target={[0, 0, 10]} focalLength={5} bokehScale={7} height={700} />
       </EffectComposer>
       <BakeShadows />
       <OrbitControls />
