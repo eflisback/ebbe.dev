@@ -1,10 +1,13 @@
+import { Start } from "./components/overlay/start/Start";
 import { DesktopBackground } from "./components/r3f/desktop-background/DesktopBackground";
 
-function App() {
-
+const App = () => {
   return (
-    <DesktopBackground />
+    <>
+      <Start />
+      <DesktopBackground />
+    </>
   );
-}
+};
 
 export default App;

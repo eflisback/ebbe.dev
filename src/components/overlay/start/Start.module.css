@@ -1,0 +1,8 @@
+@import '../Overlay.module.css';
+
+.start {
+    color: white;
+    
+    display: flex;
+    flex-direction: column;
+}
