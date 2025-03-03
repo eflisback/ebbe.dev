@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { BakeShadows, MeshReflectorMaterial } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import {
@@ -10,9 +11,23 @@ import { CameraAnimation } from "./CameraAnimation";
 
 export const DesktopBackground = () => {
   const environmentColor = "#000000";
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    if (canvasRef.current) {
+      canvasRef.current.style.opacity = "0";
+      setTimeout(() => {
+        if (canvasRef.current) {
+          canvasRef.current.style.transition = "opacity 2s ease-in-out";
+          canvasRef.current.style.opacity = "1";
+        }
+      }, 100);
+    }
+  }, []);
 
   return (
     <Canvas
+      ref={canvasRef}
       shadows
       dpr={[1, 1.5]}
       camera={{
