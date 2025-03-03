@@ -12,7 +12,7 @@ function App() {
       dpr={[1, 1.5]}
       camera={{ position: [-1.5, 1, 5.5], fov: 45, near: 1, far: 20 }}
     >
-      {/* <ambientLight intensity={1} color={"white"}/> */}
+      <ambientLight intensity={0.5} color={"#a3f4ff"}/>
       <color attach="background" args={[environmentColor]} />
       <hemisphereLight intensity={0.1} groundColor={environmentColor} />
       <spotLight
