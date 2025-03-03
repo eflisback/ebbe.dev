@@ -1,7 +1,12 @@
-import { BakeShadows, MeshReflectorMaterial, OrbitControls } from "@react-three/drei";
+import { BakeShadows, MeshReflectorMaterial } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { Bloom, DepthOfField, EffectComposer } from "@react-three/postprocessing";
+import {
+  Bloom,
+  DepthOfField,
+  EffectComposer,
+} from "@react-three/postprocessing";
 import { Desktop } from "./Desktop";
+import { CameraAnimation } from "./CameraAnimation";
 
 export const DesktopBackground = () => {
   const environmentColor = "#000000";
@@ -10,9 +15,16 @@ export const DesktopBackground = () => {
     <Canvas
       shadows
       dpr={[1, 1.5]}
-      camera={{ position: [-1.5, 1, 5.5], fov: 45, near: 1, far: 20 }}
+      camera={{
+        position: [2, 1.8, -11],
+        rotation: [-3, -0.08, -3.15],
+        fov: 45,
+        near: 1,
+        far: 20,
+      }}
     >
-      <ambientLight intensity={0.5} color={"#a3f4ff"}/>
+      <CameraAnimation rotationAmount={0.035} rotationSpeed={0.25} />
+      <ambientLight intensity={0.5} color={"#a3f4ff"} />
       <color attach="background" args={[environmentColor]} />
       <hemisphereLight intensity={0.1} groundColor={environmentColor} />
       <spotLight
@@ -25,7 +37,6 @@ export const DesktopBackground = () => {
         shadow-mapSize={1024}
       />
       <group position={[-0, -1, 0]}>
-        {/* Add keyboard, mouse, monitors here */}
         <Desktop />
         <mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
           <planeGeometry args={[50, 50]} />
@@ -50,12 +61,20 @@ export const DesktopBackground = () => {
         />
       </group>
       <EffectComposer enableNormalPass={false}>
-        <Bloom luminanceThreshold={0} mipmapBlur luminanceSmoothing={0.0} intensity={5} />
-        <DepthOfField target={[0, 0, 10]} focalLength={5} bokehScale={7} height={700} />
+        <Bloom
+          luminanceThreshold={0}
+          mipmapBlur
+          luminanceSmoothing={0.0}
+          intensity={5}
+        />
+        <DepthOfField
+          target={[0, 0, 10]}
+          focalLength={5}
+          bokehScale={7}
+          height={700}
+        />
       </EffectComposer>
       <BakeShadows />
-      <OrbitControls />
     </Canvas>
   );
-}
-
+};
