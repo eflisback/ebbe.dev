@@ -6,9 +6,12 @@ import path from 'path'
 export default defineConfig({
   plugins: [react()],
   css: {
+    modules: {
+      localsConvention: "camelCaseOnly"
+    },
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "@/styles/variables.scss";`,
+        additionalData: `@use "@/styles/variables.scss" as *;`,
       },
     },
   },

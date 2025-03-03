@@ -1,14 +1,26 @@
-@use '../Overlay.module.scss';
+@use "../Overlay.module.scss";
 
 .start {
-    color: white;
-    
-    display: flex;
-    flex-direction: column;
+  color: $white;
 
-    .header {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .logo {
+      font-size: 3.6rem;
+      font-weight: 600;
     }
+  }
+}
+
+.gradient-text {
+  background: linear-gradient(75deg, #4b66df, #bc75ff, #c58032);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
