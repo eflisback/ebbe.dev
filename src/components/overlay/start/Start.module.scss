@@ -1,0 +1,14 @@
+@use '../Overlay.module.scss';
+
+.start {
+    color: white;
+    
+    display: flex;
+    flex-direction: column;
+
+    .header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
