@@ -2,6 +2,17 @@ import { useGLTF } from "@react-three/drei";
 import { useMemo } from "react";
 import { MonitorWithImage } from "./MonitorWithImage";
 
+const imagePairs = [
+  [
+    "/images/left_monitor_screenshot.png",
+    "/images/right_monitor_screenshot.png",
+  ],
+  [
+    "/images/left_monitor_screenshot_2.png",
+    "/images/right_monitor_screenshot_2.png",
+  ],
+];
+
 export const Desktop = () => {
   const keyboard = useGLTF("/models/keyboard.glb");
   const monitor = useGLTF("/models/monitor.glb");
@@ -16,6 +27,9 @@ export const Desktop = () => {
     [monitor.scene]
   );
 
+  const randomImagePair =
+    imagePairs[Math.floor(Math.random() * imagePairs.length)];
+
   return (
     <group>
       {/* Keyboard */}
@@ -28,7 +42,7 @@ export const Desktop = () => {
       {/* Left Monitor */}
       <MonitorWithImage
         monitorScene={leftMonitorScene}
-        imageUrl="/images/left_monitor_screenshot.png"
+        imageUrl={randomImagePair[0]}
         position={[2.75, 0, 1]}
         scale={[0.1, 0.1, 0.1]}
         rotation={[0, 0.3, 0]}
@@ -36,7 +50,7 @@ export const Desktop = () => {
       {/* Right Monitor */}
       <MonitorWithImage
         monitorScene={rightMonitorScene}
-        imageUrl="/images/right_monitor_screenshot.png"
+        imageUrl={randomImagePair[1]}
         position={[-2.75, 0, 1]}
         scale={[0.1, 0.1, 0.1]}
         rotation={[0, -0.3, 0]}
