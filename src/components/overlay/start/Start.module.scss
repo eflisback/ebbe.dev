@@ -8,17 +8,26 @@
   justify-content: space-between;
 
   .middle-section {
+    min-height: 0;
     flex: 1;
     width: 30%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     gap: 1rem;
 
     .title {
       padding: 2rem 4rem;
       font-size: 2.8rem;
       border-bottom: 1px solid $gray;
+      margin-top: 10vh;
+    }
+
+    .overflow-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      overflow-y: auto;
     }
 
     .project-link {
@@ -69,12 +78,13 @@
         text-decoration: none;
         color: inherit;
         font-weight: bold;
-        transition: color text-shadow $color-transition;
+        transition: text-shadow $color-transition;
+        text-shadow: 0 0 1rem #00000000;
     }
 
     a:hover {
         color: $white;
-        text-shadow: 0 0 1rem rgba($color: #FFFFFF, $alpha: 0.5);
+        text-shadow: 0 0 1rem rgba($color: #FFFFFF, $alpha: 0.25);
     }
   }
 }

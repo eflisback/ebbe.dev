@@ -51,6 +51,7 @@ export const Start = () => {
       <Header />
       <div className={styles.middleSection}>
         <div className={styles.title}>Projects</div>
+        <div className={styles.overflowContainer}>
         {projectLinks.map((link, index) => (
           <a
             key={index}
@@ -65,6 +66,7 @@ export const Start = () => {
             <span>{link.description}</span>
           </a>
         ))}
+        </div>
       </div>
       <div className={styles.footer}>
         <FaCode />
