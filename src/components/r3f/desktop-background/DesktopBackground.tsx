@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BakeShadows, MeshReflectorMaterial } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import {
@@ -13,17 +13,21 @@ export const DesktopBackground = () => {
   const environmentColor = "#000000";
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
+  const [loaded, setLoaded] = useState(false);
+
   useEffect(() => {
     if (canvasRef.current) {
       canvasRef.current.style.opacity = "0";
-      setTimeout(() => {
-        if (canvasRef.current) {
-          canvasRef.current.style.transition = "opacity 2s ease-in-out";
-          canvasRef.current.style.opacity = "1";
-        }
-      }, 1000);
+      if (loaded) {
+        setTimeout(() => {
+          if (canvasRef.current) {
+            canvasRef.current.style.transition = "opacity 2s ease-in-out";
+            canvasRef.current.style.opacity = "1";
+          }
+        }, 500);
+      }
     }
-  }, []);
+  }, [loaded]);
 
   return (
     <Canvas
@@ -52,7 +56,7 @@ export const DesktopBackground = () => {
         shadow-mapSize={1024}
       />
       <group position={[-0, -1, 0]}>
-        <Desktop />
+        <Desktop onLoad={() => setLoaded(true)} />
         <mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
           <planeGeometry args={[50, 50]} />
           <MeshReflectorMaterial

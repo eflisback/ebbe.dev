@@ -1,9 +1,9 @@
 import { useGLTF } from "@react-three/drei";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { MonitorWithImage } from "./MonitorWithImage";
 import { imagePairs } from "./constants";
 
-export const Desktop = () => {
+export const Desktop = ({ onLoad }: { onLoad: () => void }) => {
   const keyboard = useGLTF("/models/keyboard.glb");
   const monitor = useGLTF("/models/monitor.glb");
   const mouse = useGLTF("/models/mouse.glb");
@@ -19,6 +19,17 @@ export const Desktop = () => {
 
   const randomImagePair =
     imagePairs[Math.floor(Math.random() * imagePairs.length)];
+
+    const [loaded, setLoaded] = useState(false);
+
+    useEffect(() => {
+      if (keyboard.scene && monitor.scene && mouse.scene) {
+        setLoaded(true);
+        onLoad();
+      }
+    }, [keyboard, monitor, mouse, onLoad]);
+  
+    if (!loaded) return null;
 
   return (
     <group>
