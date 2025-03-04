@@ -17,29 +17,33 @@ interface ProjectLink {
 const projectLinks: ProjectLink[] = [
   {
     icon: <ScaleFinderIcon />,
-    title: "ScaleFinder.app",
-    description: "A web tool used to determine musical scales, made using React and TypeScript.",
-    href: "https://scalefinder.app/"
+    title: "Scale Finder",
+    description:
+      "A web tool for identifying musical scales, built with React and TypeScript.",
+    href: "https://scalefinder.app/",
   },
   {
     icon: <SumobileIcon />,
     title: "Sumobile",
-    description: "A local multiplayer game made using the open source game engine Godot and written in C#.",
-    href: ""
+    description:
+      "A local multiplayer game developed using the open-source Godot game engine and written in C#.",
+    href: "",
   },
   {
     icon: <GeoGuessrCNNIcon />,
     title: "GeoGuessr CNN",
-    description: "A convolutional neural network trained using TensorFlow to guess countries based on Google Street View footage.",
-    href: "https://github.com/eflisback/geoguessrbot-v2/"
+    description:
+      "A convolutional neural network trained to predict countries based on Google Street View footage.",
+    href: "https://github.com/eflisback/geoguessrbot-v2/",
   },
   {
     icon: <SiScala color="#DE3423" />,
     title: "AoC 2024 Scala",
-    description: "My attempt at solving the Advent of Code 2024 challanges using Scala.",
+    description:
+      "My attempt at solving the Advent of Code 2024 challenges using Scala.",
     href: "https://github.com/eflisback/advent-of-code-2024/",
-  }
-]
+  },
+];
 
 export const Start = () => {
   return (
@@ -48,7 +52,12 @@ export const Start = () => {
       <div className={styles.middleSection}>
         <div className={styles.title}>Projects</div>
         {projectLinks.map((link, index) => (
-          <a key={index} className={styles.projectLink} href={link.href} target="_blank">
+          <a
+            key={index}
+            className={styles.projectLink}
+            href={link.href}
+            target="_blank"
+          >
             <div className={styles.header}>
               {link.icon}
               <span>{link.title}</span>
@@ -60,7 +69,7 @@ export const Start = () => {
       <div className={styles.footer}>
         <FaCode />
         <span>
-          This portfolio is open source, and its GitHub repository is available{" "}
+          This portfolio site is open source, and its GitHub repository is available{" "}
           {/* TODO: Add actual GitHub repository link. */}
           <a href="">here</a>.
         </span>
