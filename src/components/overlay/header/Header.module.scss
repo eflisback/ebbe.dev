@@ -8,6 +8,10 @@
     font-size: 3.6rem;
     font-weight: 600;
     text-shadow: 0 0 3rem rgba($color: #ffb3e8, $alpha: 0.75);
+
+    .tag {
+        color: gray;
+    }
   }
 
   .socials {
@@ -32,4 +36,19 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+
+  animation: gradient-animation 15s ease infinite;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
