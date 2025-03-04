@@ -5,7 +5,7 @@ import { FaCode } from "react-icons/fa";
 import { SiScala } from "react-icons/si";
 import { ScaleFinderIcon } from "./icons/ScaleFinderIcon";
 import { GeoGuessrCNNIcon } from "./icons/GeoGuessrCNNIcon";
-import { SumobileIcon } from "./icons/SumobileIcon";
+// import { SumobileIcon } from "./icons/SumobileIcon";
 
 interface ProjectLink {
   icon: ReactElement;
@@ -22,13 +22,14 @@ const projectLinks: ProjectLink[] = [
       "A web tool for identifying musical scales, built with React and TypeScript.",
     href: "https://scalefinder.app/",
   },
-  {
-    icon: <SumobileIcon />,
-    title: "Sumobile",
-    description:
-      "A local multiplayer game developed using the open-source Godot game engine and written in C#.",
-    href: "",
-  },
+  // Coming soon...
+  // {
+  //   icon: <SumobileIcon />,
+  //   title: "Sumobile",
+  //   description:
+  //     "A local multiplayer game developed using the open-source Godot game engine and written in C#.",
+  //   href: "",
+  // },
   {
     icon: <GeoGuessrCNNIcon />,
     title: "GeoGuessr CNN",
