@@ -1,17 +1,7 @@
 import { useGLTF } from "@react-three/drei";
 import { useMemo } from "react";
 import { MonitorWithImage } from "./MonitorWithImage";
-
-const imagePairs = [
-  [
-    "/images/left_monitor_screenshot.png",
-    "/images/right_monitor_screenshot.png",
-  ],
-  [
-    "/images/left_monitor_screenshot_2.png",
-    "/images/right_monitor_screenshot_2.png",
-  ],
-];
+import { imagePairs } from "./constants";
 
 export const Desktop = () => {
   const keyboard = useGLTF("/models/keyboard.glb");
