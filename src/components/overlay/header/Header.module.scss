@@ -22,7 +22,7 @@
 
     .link {
       color: $gray;
-      transition: $color-transition;
+      transition: color $color-transition;
     }
 
     .link:hover {
