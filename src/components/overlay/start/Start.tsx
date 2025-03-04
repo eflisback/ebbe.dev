@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 import { Header } from "../header/Header";
 import styles from "./Start.module.scss";
-import { FaCode, FaSteam } from "react-icons/fa";
+import { FaCode } from "react-icons/fa";
 import { SiScala } from "react-icons/si";
 import { ScaleFinderIcon } from "./icons/ScaleFinderIcon";
 import { GeoGuessrCNNIcon } from "./icons/GeoGuessrCNNIcon";
@@ -24,7 +24,7 @@ const projectLinks: ProjectLink[] = [
   {
     icon: <SumobileIcon />,
     title: "Sumobile",
-    description: "A local multiplayer game made using the open source game engine Godot 4 and written in C#.",
+    description: "A local multiplayer game made using the open source game engine Godot and written in C#.",
     href: ""
   },
   {
