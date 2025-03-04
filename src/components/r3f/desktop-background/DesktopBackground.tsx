@@ -19,12 +19,8 @@ export const DesktopBackground = () => {
     if (canvasRef.current) {
       canvasRef.current.style.opacity = "0";
       if (loaded) {
-        setTimeout(() => {
-          if (canvasRef.current) {
-            canvasRef.current.style.transition = "opacity 2s ease-in-out";
-            canvasRef.current.style.opacity = "1";
-          }
-        }, 500);
+        canvasRef.current.style.transition = "opacity 2s ease-in-out";
+        canvasRef.current.style.opacity = "1";
       }
     }
   }, [loaded]);
