@@ -39,9 +39,9 @@ export const DesktopBackground = () => {
       }}
     >
       <CameraAnimation rotationAmount={0.035} rotationSpeed={0.25} />
-      <ambientLight intensity={0.5} color={"#a3f4ff"} />
+      {/* <ambientLight intensity={0.5} color={"#a3f4ff"} /> */}
       <color attach="background" args={[environmentColor]} />
-      <hemisphereLight intensity={0.1} groundColor={environmentColor} />
+      <hemisphereLight intensity={0.05} groundColor={environmentColor} />
       <spotLight
         decay={0}
         position={[10, 20, 10]}
@@ -68,12 +68,6 @@ export const DesktopBackground = () => {
             metalness={0.8}
           />
         </mesh>
-        <pointLight
-          distance={1.5}
-          intensity={1}
-          position={[-0.15, 0.7, 0]}
-          color="orange"
-        />
       </group>
       <EffectComposer enableNormalPass={false}>
         <Bloom
