@@ -5,15 +5,65 @@
 
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 
   .header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 
     .logo {
       font-size: 3.6rem;
       font-weight: 600;
+      text-shadow: 0 0 3rem rgba($color: #ffb3e8, $alpha: 0.75);
+    }
+
+    .socials {
+      font-size: 2.4rem;
+      display: flex;
+      flex-direction: row;
+      gap: 1.2rem;
+
+      .link {
+        color: $gray;
+        transition: $color-transition;
+      }
+
+      .link:hover {
+        color: $white;
+      }
+    }
+  }
+
+  .middle-section {
+    flex: 1;
+    width: 35%;
+    // border: 1px solid white;
+  }
+
+  .footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.6rem;
+    font-size: 1.4rem;
+
+    svg {
+      position: relative;
+      top: 0.1rem;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+        font-weight: bold;
+        transition: $color-transition;
+    }
+
+    a:hover {
+        color: $white;
+        text-shadow: 0 0 1rem rgba($color: #FFFFFF, $alpha: 0.5);
     }
   }
 }
