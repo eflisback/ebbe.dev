@@ -21,7 +21,7 @@ export const DesktopBackground = () => {
           canvasRef.current.style.transition = "opacity 2s ease-in-out";
           canvasRef.current.style.opacity = "1";
         }
-      }, 100);
+      }, 1000);
     }
   }, []);
 
