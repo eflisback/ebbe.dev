@@ -74,7 +74,7 @@ export const Start = () => {
         <span>
           This portfolio site is open source, and its GitHub repository is available{" "}
           {/* TODO: Add actual GitHub repository link. */}
-          <a href="">here</a>.
+          <a href="https://github.com/eflisback/ebbe.dev/" target="_blank">here</a>.
         </span>
       </div>
     </div>
