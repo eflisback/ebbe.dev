@@ -17,19 +17,21 @@ export const Desktop = ({ onLoad }: { onLoad: () => void }) => {
     [monitor.scene]
   );
 
-  const randomImagePair =
-    imagePairs[Math.floor(Math.random() * imagePairs.length)];
+  const randomImagePair = useMemo(
+    () => imagePairs[Math.floor(Math.random() * imagePairs.length)],
+    []
+  );
 
-    const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
-    useEffect(() => {
-      if (keyboard.scene && monitor.scene && mouse.scene) {
-        setLoaded(true);
-        onLoad();
-      }
-    }, [keyboard, monitor, mouse, onLoad]);
-  
-    if (!loaded) return null;
+  useEffect(() => {
+    if (keyboard.scene && monitor.scene && mouse.scene) {
+      setLoaded(true);
+      onLoad();
+    }
+  }, [keyboard, monitor, mouse, onLoad]);
+
+  if (!loaded) return null;
 
   return (
     <group>

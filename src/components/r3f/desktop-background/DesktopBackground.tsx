@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { BakeShadows, MeshReflectorMaterial } from "@react-three/drei";
+import { MeshReflectorMaterial } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import {
   Bloom,
@@ -19,8 +19,12 @@ export const DesktopBackground = () => {
     if (canvasRef.current) {
       canvasRef.current.style.opacity = "0";
       if (loaded) {
-        canvasRef.current.style.transition = "opacity 2s ease-in-out";
-        canvasRef.current.style.opacity = "1";
+        setTimeout(() => {
+          if (canvasRef.current) {
+            canvasRef.current.style.transition = "opacity 2s ease-in-out";
+            canvasRef.current.style.opacity = "1";
+          }
+        }, 500);
       }
     }
   }, [loaded]);
@@ -56,8 +60,8 @@ export const DesktopBackground = () => {
         <mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
           <planeGeometry args={[50, 50]} />
           <MeshReflectorMaterial
-            blur={[300, 30]}
-            resolution={2048}
+            blur={[100, 10]}
+            resolution={1024}
             mixBlur={0.5}
             mixStrength={90}
             roughness={1}
@@ -74,16 +78,15 @@ export const DesktopBackground = () => {
           luminanceThreshold={0}
           mipmapBlur
           luminanceSmoothing={0.0}
-          intensity={5}
+          intensity={2}
         />
         <DepthOfField
           target={[0, 0, 10]}
           focalLength={5}
-          bokehScale={7}
+          bokehScale={3}
           height={700}
         />
       </EffectComposer>
-      <BakeShadows />
     </Canvas>
   );
 };
