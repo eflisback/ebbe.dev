@@ -15,6 +15,22 @@
     flex-direction: column;
     gap: 1rem;
 
+    @media (max-width: 1200px) {
+      width: 50%;
+    }
+
+    @media (max-width: 800px) {
+      width: 70%;
+    }
+
+    @media (max-width: 600px) {
+      width: 90%;
+    }
+
+    @media (max-width: 400px) {
+      width: 100%;
+    }
+
     .title {
       padding: 2rem 4rem;
       font-size: 2.8rem;
@@ -59,7 +75,6 @@
     .project-link:hover {
       background-color: #3a3a3a8a;
     }
-
   }
 
   .footer {
@@ -68,6 +83,7 @@
     justify-content: center;
     gap: 0.6rem;
     font-size: 1.4rem;
+    text-align: center;
 
     svg {
       position: relative;
@@ -75,17 +91,16 @@
     }
 
     a {
-        text-decoration: none;
-        color: inherit;
-        font-weight: bold;
-        transition: text-shadow $color-transition;
-        text-shadow: 0 0 1rem #00000000;
+      text-decoration: none;
+      color: inherit;
+      font-weight: bold;
+      transition: text-shadow $color-transition;
+      text-shadow: 0 0 1rem #00000000;
     }
 
     a:hover {
-        color: $white;
-        text-shadow: 0 0 1rem rgba($color: #FFFFFF, $alpha: 0.25);
+      color: $white;
+      text-shadow: 0 0 1rem rgba($color: #ffffff, $alpha: 0.25);
     }
   }
 }
-
